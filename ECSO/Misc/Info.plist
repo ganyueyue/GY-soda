@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>dc?</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sodato</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mqqwpa</string>
+		<string>wtloginmqq2</string>
+		<string>mqqopensdkapiV3</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqzoneopensdkapiV2</string>
+		<string>mqzoneopensdkapi</string>
+		<string>mqzoneopensdkapi19</string>
+		<string>mqzoneopensdk</string>
+		<string>mqqapi</string>
+		<string>mqq</string>
+		<string>wtloginmqq2</string>
+		<string>mqqopensdkapiV3</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>weixin</string>
+		<string>weixinULAPI</string>
+		<string>weixinURLParamsAPI</string>
+		<string>wechat</string>
+		<string>weibosdk2.5</string>
+		<string>weibosdk</string>
+		<string>sinaweibosso</string>
+		<string>sinaweibohd</string>
+		<string>sinaweibo</string>
+		<string>alipays</string>
+		<string>alipay</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>Pasteboard Reading</key>
+	<string></string>
+	<key>Pasteboard Writing</key>
+	<string></string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
+</dict>
+</plist>

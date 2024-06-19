@@ -1,0 +1,79 @@
+PODS:
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - DZNEmptyDataSet (1.8.1)
+  - FLAnimatedImage (1.0.17)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - IQKeyboardManager (6.5.17)
+  - Masonry (1.1.0)
+  - MJExtension (3.4.1)
+  - MJRefresh (3.7.6)
+  - SAMKeychain (1.5.3)
+  - SDWebImage (5.18.11):
+    - SDWebImage/Core (= 5.18.11)
+  - SDWebImage/Core (5.18.11)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
+  - TZImagePickerController (3.8.4):
+    - TZImagePickerController/Basic (= 3.8.4)
+    - TZImagePickerController/Location (= 3.8.4)
+  - TZImagePickerController/Basic (3.8.4)
+  - TZImagePickerController/Location (3.8.4)
+
+DEPENDENCIES:
+  - AFNetworking/NSURLSession
+  - AFNetworking/Reachability
+  - AFNetworking/Security
+  - AFNetworking/Serialization
+  - DZNEmptyDataSet
+  - FLAnimatedImage
+  - FMDB
+  - IQKeyboardManager
+  - Masonry
+  - MJExtension
+  - MJRefresh
+  - SAMKeychain
+  - SDWebImage
+  - SVProgressHUD
+  - TZImagePickerController
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - DZNEmptyDataSet
+    - FLAnimatedImage
+    - FMDB
+    - IQKeyboardManager
+    - Masonry
+    - MJExtension
+    - MJRefresh
+    - SAMKeychain
+    - SDWebImage
+    - SVProgressHUD
+    - TZImagePickerController
+
+SPEC CHECKSUMS:
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FLAnimatedImage: bbf914596368867157cc71b38a8ec834b3eeb32b
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  IQKeyboardManager: 904d013844bbae0abe073f015487bfebe5476335
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
+  MJRefresh: 2fe7fb43a5167ceda20bb7e63f130c04fd1814a5
+  SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
+  SDWebImage: a3ba0b8faac7228c3c8eadd1a55c9c9fe5e16457
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
+  TZImagePickerController: f1c9f1cae6ac0e30b31aaa9698f9bf4a7cf5b84f
+
+PODFILE CHECKSUM: f5e5cc589a39f2af7ab76f52070d2efd104e30a4
+
+COCOAPODS: 1.15.2

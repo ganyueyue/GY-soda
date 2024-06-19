@@ -1,0 +1,6 @@
+framework module Pods_ECSO {
+  umbrella header "Pods-ECSO-umbrella.h"
+
+  export *
+  module * { export * }
+}
