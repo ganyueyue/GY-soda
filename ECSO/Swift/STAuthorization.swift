@@ -22,6 +22,7 @@ class STAuthorization: KYBaseContentView {
         iconView.layer.cornerRadius = 22.5
         iconView.clipsToBounds = true
         return iconView
+        
     }()
     
     internal lazy var titleLabel : UILabel = {
