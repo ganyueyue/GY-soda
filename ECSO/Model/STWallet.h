@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)NSInteger tokenConfId;
 @property (nonatomic, assign)NSInteger status;
 
+@property (nonatomic, assign)BOOL isSelected;
+
 @end
 
 NS_ASSUME_NONNULL_END

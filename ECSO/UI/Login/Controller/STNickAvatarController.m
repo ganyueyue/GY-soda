@@ -59,7 +59,7 @@
     UILabel *tipLabel = [[UILabel alloc]init];
     tipLabel.textColor = SXColorMain;
     tipLabel.font = [STFont fontStatus:medium fontSize:22];
-    tipLabel.text = @"登录其他账户";
+    tipLabel.text = @"登录其他账户".string;
     tipLabel.userInteractionEnabled = true;
     [self.view addSubview:tipLabel];
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -73,7 +73,7 @@
     UILabel *promptLabel = [[UILabel alloc]init];
     promptLabel.textColor = SXColorMain;
     promptLabel.font = [STFont fontStatus:medium fontSize:23];
-    promptLabel.text = @"HI, 给自己设置个形象吧~";
+    promptLabel.text = @"HI, 给自己设置个形象吧~".string;
     promptLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:promptLabel];
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,7 +85,7 @@
     UILabel *hintLabel = [[UILabel alloc]init];
     hintLabel.textColor = SXColor9;
     hintLabel.font = [STFont fontSize:14];
-    hintLabel.text = @"有形象的小伙伴更容易获得关注哦！";
+    hintLabel.text = @"有形象的小伙伴更容易获得关注哦！".string;
     hintLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:hintLabel];
     [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -129,7 +129,7 @@
     
     UIButton *createBtn = [[UIButton alloc]init];
     [createBtn setBackgroundImage:[UIImage imageWithColor:HexRGB(0x474E6F)] forState:UIControlStateNormal];
-    [createBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    [createBtn setTitle:@"下一步".string forState:UIControlStateNormal];
     [createBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     createBtn.titleLabel.font = [STFont fontStatus:medium fontSize:18];
     createBtn.layer.cornerRadius = 8;
@@ -150,7 +150,7 @@
         _textField = [[UITextField alloc]init];
         _textField.font = [STFont fontSize:17];
         _textField.textColor = HexRGB(0x292F48);
-        _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入昵称，最多5个字" attributes:@{NSFontAttributeName:[STFont fontSize:17],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+        _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入昵称，最多5个字".string attributes:@{NSFontAttributeName:[STFont fontSize:17],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.layer.borderColor = HexRGB(0x868686).CGColor;
         _textField.layer.borderWidth = 0.5;

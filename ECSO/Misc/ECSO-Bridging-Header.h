@@ -17,6 +17,7 @@
 #import "STBaseViewController.h"
 #import "NoticeHelp.h"
 #import "STCustomNavView.h"
+#import "NSString+Extension.h"
 #import "STAppEnvs.h"
 #import "STWallet.h"
 #import "STWebViewController.h"

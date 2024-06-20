@@ -22,6 +22,7 @@
 #import "STPwdPopupView.h"
 #import "STCall.h"
 #import "STComplainController.h"
+#import "TZImagePickerController.h"
 @interface STWebViewController () <STErrorViewDelegate,STAuthorizationDelegate>
 
 @property (nonatomic, strong) STErrorView *errorView;
@@ -339,7 +340,7 @@
 - (void)showNavigtaionItem {
     NSMutableArray *menuList = [NSMutableArray array];
     NSArray *icons = @[@"icon_menu_refresh",@"icon_menu_share",@"icon_menu_service"];
-    NSArray *names = @[@"刷    新",@"分    享",@"投    诉"];
+    NSArray *names = @[@"刷    新".string,@"分    享".string,@"投    诉".string];
     for (NSInteger index = 0; index < 3; index++) {
         STMenuInfo *info = [[STMenuInfo alloc]init];
         info.icon = icons[index];
@@ -347,7 +348,7 @@
         info.index = index;
         [menuList addObject:info];
     }
-    self.popoverView.bounds = CGRectMake(0, 0, 110, (menuList.count > 8 ? 320 : menuList.count * 40));
+    self.popoverView.bounds = CGRectMake(0, 0, 120, (menuList.count > 8 ? 400 : menuList.count * 50));
     self.popoverView.dataArray = menuList;
     __weak typeof(self) weakSelf = self;
     self.popoverView.clickBlock = ^(STMenuInfo * _Nonnull info) {
@@ -665,7 +666,7 @@
         NSInteger blockchain = [info.args[@"blockchain"] integerValue];
         NSMutableArray *list = [NSMutableArray array];
         for (STWallet *waller in [[STCacheManager shareInstance] getWallers]) {
-            if (waller.blockchain == blockchain) {
+            if (waller.blockchain == 32) {
                 [list addObject:waller];
             }
         }
@@ -675,7 +676,7 @@
         }
         self.authorizationView = [[STAuthorization alloc] initWithName:info.name appcode:info.args[@"appcode"] attach:info.attach blockchain:blockchain wallers:list.copy];
         self.authorizationView.delegate = self;
-        self.popupViewController = [NoticeHelp showCustomPopViewController:self.authorizationView withGestureDismissal:true complete:nil];
+        self.popupViewController = [NoticeHelp showCustomPopViewController:self.authorizationView withGestureDismissal:false complete:nil];
     } else if ([info.name isEqualToString:@"initApp"]) {
         NSString *appCode = [NSString md5:[NSString stringWithFormat:@"%@%@",info.args[@"name"],info.args[@"developer"]]];
         NSString *urlString = [NSString stringWithFormat:@"onAppCallResult(\'{\"name\":\"%@\",\"attach\":\"%@\",\"error\":\"0\",\"result\":{\"appcode\":\"%@\"}}\')",info.name,info.attach,appCode];
@@ -690,6 +691,22 @@
     } else if ([info.name isEqualToString:@"toShare"]) {
         self.share.type = info.args[@"type"];
         [self showShareView];
+    } else if ([info.name isEqualToString:@"scan"]) {//扫一扫
+        STScanViewController *vc = [[STScanViewController alloc] init];
+        [self pushViewController:vc];
+    } else if ([info.name isEqualToString:@"photo"]) {//相册
+        TZImagePickerController *vc = [[TZImagePickerController alloc]initWithMaxImagesCount:1 columnNumber:4 delegate:nil];
+        vc.allowCrop = true;
+        vc.allowPickingVideo = false;
+        vc.allowTakePicture = false;
+        vc.cropRect = CGRectMake(0, (ScreenHeight - ScreenWidth) * 0.5, ScreenWidth, ScreenWidth);
+        vc.didFinishPickingPhotosHandle = ^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+            if (photos.count > 0) {
+               
+            }
+        };
+        [self present:vc completion:nil];
+        
     }
     NSLog(@"%@---%@",message.name,message.body);
 }

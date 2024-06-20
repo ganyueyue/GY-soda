@@ -54,7 +54,7 @@
     if (_navView == nil) {
         _navView = [[STCustomNavView alloc] init];
         _navView.backgroundColor = HexRGB(0xf5f5f5);
-        _navView.titleLabel.text = @"投诉";
+        _navView.titleLabel.text = @"投诉".string;
         _navView.saveBtn.hidden = true;
     }
     return _navView;
@@ -65,7 +65,7 @@
         _textView = [[KMPlaceholderTextView alloc]init];
         _textView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
         _textView.textColor = HexRGB(0x344356);
-        _textView.placeholder = @"请输入投诉内容";
+        _textView.placeholder = @"请输入投诉内容".string;
         _textView.placeholderColor = HexRGB(0xA3A3A3);
         _textView.font = [STFont fontSize:15];
         _textView.backgroundColor = HexRGB(0xf7f7f7);
@@ -87,7 +87,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.font = [STFont fontStatus:medium fontSize:18];
     titleLabel.textColor = SXColorMain;
-    titleLabel.text = @"投诉类型";
+    titleLabel.text = @"投诉类型".string;
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(20);
@@ -95,7 +95,7 @@
     }];
     
     self.editBtn = [[UIButton alloc] init];
-    [self.editBtn setTitle:@"请选择" forState:UIControlStateNormal];
+    [self.editBtn setTitle:@"请选择".string forState:UIControlStateNormal];
     [self.editBtn setTitleColor:SXColor9 forState:UIControlStateNormal];
     self.editBtn.titleLabel.font = [STFont fontSize:17];
     [self.editBtn setImage:[UIImage imageNamed:@"common_arrow"] forState:UIControlStateNormal];
@@ -106,13 +106,13 @@
     [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(titleLabel);
         make.trailing.equalTo(self.view).offset(-20);
-        make.size.mas_offset(CGSizeMake(100, 30));
+        make.size.mas_offset(CGSizeMake(200, 30));
     }];
     
     UILabel *tipsLabel = [[UILabel alloc] init];
     tipsLabel.font = [STFont fontStatus:medium fontSize:18];
     tipsLabel.textColor = SXColorMain;
-    tipsLabel.text = @"投诉内容";
+    tipsLabel.text = @"投诉内容".string;
     [self.view addSubview:tipsLabel];
     [tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(20);
@@ -129,7 +129,7 @@
     
     UIButton *createBtn = [[UIButton alloc]init];
     [createBtn setBackgroundImage:[UIImage imageWithColor:HexRGB(0x474E6F)] forState:UIControlStateNormal];
-    [createBtn setTitle:@"提 交" forState:UIControlStateNormal];
+    [createBtn setTitle:@"提 交".string forState:UIControlStateNormal];
     [createBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     createBtn.titleLabel.font = [STFont fontStatus:medium fontSize:18];
     createBtn.layer.cornerRadius = 8;
@@ -156,7 +156,7 @@
 
 - (void)selectTypeAction:(UIButton *)sender {
     __weak typeof(self) weakSelf = self;
-    NSArray *list = @[@"诈骗",@"黄色",@"暴力",@"政治",@"赌博"];
+    NSArray *list = @[@"诈骗".string,@"黄色".string,@"暴力".string,@"政治".string,@"赌博".string];
     [NoticeHelp showActionSheetViewControllerTitle:nil customView:nil duration:0.25 buttonTitles:list tapBlock:^(NSInteger buttonIndex) {
         weakSelf.type = buttonIndex + 1;
         [sender setTitle:list[buttonIndex] forState:UIControlStateNormal];
@@ -174,7 +174,7 @@
     [self.view endEditing:true];
     __weak typeof(self) weakSelf = self;
     [self.request complaint:self.urlString type:self.type description:self.textView.text success:^(id object) {
-        [SVProgressHelper customDismiss:true message:@"投诉成功" complete:^{
+        [SVProgressHelper customDismiss:true message:@"投诉成功".string complete:^{
             [weakSelf popViewController:nil];
         }];
     } fail:^(FAILCODE stateCode, NSString *error) {

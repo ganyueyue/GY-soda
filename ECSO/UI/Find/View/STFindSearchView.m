@@ -48,7 +48,7 @@
         _textField = [[UITextField alloc]init];
         _textField.font = [STFont fontSize:16];
         _textField.textColor = HexRGB(0x292F48);
-        _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"搜索" attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0x888888)}];
+        _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"搜索".string attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0x888888)}];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.clipsToBounds = true;
         [_textField setAutocapitalizationType:(UITextAutocapitalizationTypeNone)];

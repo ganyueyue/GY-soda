@@ -28,6 +28,7 @@ open class KYPopupViewController: UIViewController {
 
     internal var buttons = [KYPopupButton]()
     internal var gestureDismissal : Bool = false
+    internal var offset : Bool = false
 
     @objc internal var contentView : KYBaseContentView!
     internal var contentYConstraint : NSLayoutConstraint!

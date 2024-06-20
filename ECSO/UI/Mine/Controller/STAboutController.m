@@ -23,7 +23,7 @@
     self.isShowLoadView = false;
     self.view.backgroundColor = HexRGB(0xf7f7f7);
     
-    self.dataArray = @[@"功能介绍",@"用户协议",@"隐私政策"];
+    self.dataArray = @[@"免责协议".string,@"用户协议".string,@"隐私政策".string];
     
     [self.view addSubview:self.navView];
     [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -49,7 +49,7 @@
 - (STCustomNavView *)navView {
     if (_navView == nil) {
         _navView = [[STCustomNavView alloc]init];
-        _navView.titleLabel.text = @"关于";
+        _navView.titleLabel.text = @"关于".string;
         _navView.saveBtn.hidden = true;
         _navView.backgroundColor = [UIColor whiteColor];
     }

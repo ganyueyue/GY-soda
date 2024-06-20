@@ -46,8 +46,8 @@
 - (STInputView *)accountView {
     if (_accountView == nil) {
         _accountView = [[STInputView alloc]init];
-        _accountView.nameLabel.text = @"账号";
-        _accountView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入账号" attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+        _accountView.nameLabel.text = @"账号".string;
+        _accountView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入账号".string attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
         _accountView.textField.delegate = self;
     }
     return _accountView;
@@ -56,8 +56,8 @@
 - (STInputView *)pwdView {
     if (_pwdView == nil) {
         _pwdView = [[STInputView alloc]init];
-        _pwdView.nameLabel.text = @"密码";
-        _pwdView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入密码" attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+        _pwdView.nameLabel.text = @"密码".string;
+        _pwdView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入密码".string attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
         _pwdView.textField.secureTextEntry = true;
         [_pwdView.textField addTarget:self action:@selector(textFieldDidChangeValue:)forControlEvents:UIControlEventEditingChanged];
     }
@@ -77,7 +77,7 @@
     UILabel *promptLabel = [[UILabel alloc]init];
     promptLabel.textColor = SXColorMain;
     promptLabel.font = [STFont fontStatus:medium fontSize:18];
-    promptLabel.text = @"请登录";
+    promptLabel.text = @"请登录".string;
     promptLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:promptLabel];
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,7 +113,7 @@
     
     UIButton *createBtn = [[UIButton alloc]init];
     [createBtn setBackgroundImage:[UIImage imageWithColor:HexRGB(0x474E6F)] forState:UIControlStateNormal];
-    [createBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [createBtn setTitle:@"登录".string forState:UIControlStateNormal];
     [createBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     createBtn.titleLabel.font = [STFont fontStatus:medium fontSize:18];
     createBtn.layer.cornerRadius = 8;
@@ -159,7 +159,7 @@
 }
 
 - (void)loginBtnAction {
-    [SVProgressHelper showHUDWithStatus:@"正在登录..."];
+    [SVProgressHelper showHUDWithStatus:@"正在登录...".string];
     [self.request loginUser:self.accountView.textField.text password:self.pwdView.textField.text clientId:[[STCacheManager shareInstance] getUUID] success:^(id object) {
         STUser *user = object;
         [STUserDefault setObjectValue:user.token forKey:@"token"];
@@ -168,7 +168,7 @@
         [STUserDefault setObjectValue:user.userName forKey:@"userName"];
         [STUserDefault setObjectValue:user.displayName forKey:@"displayName"];
         [[STCacheManager shareInstance] saveWallers:user.wallets];
-        [SVProgressHelper customDismiss:true message:@"登录成功" complete:nil];
+        [SVProgressHelper customDismiss:true message:@"登录成功".string complete:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             // 主线程更新
             STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];

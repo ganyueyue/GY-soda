@@ -49,7 +49,7 @@ class STAuthorization: KYBaseContentView {
         descLabel.textColor = UIColor(hex: 0x292F48)
         descLabel.font = UIFont.systemFont(ofSize: 12)
         descLabel.numberOfLines = 0
-        descLabel.text = "请求获取您的用户信息（昵称、头像、手机号码、钱包地址）";
+        descLabel.text = "请求获取您的用户信息（昵称、头像、手机号码、钱包地址）".string();
         return descLabel;
     }()
     
@@ -69,7 +69,7 @@ class STAuthorization: KYBaseContentView {
     internal lazy var cancelButton :UIButton = {
         let cancelButton = UIButton.init(frame: .zero)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.setTitle("取消", for: .normal)
+        cancelButton.setTitle("取消".string(), for: .normal)
         cancelButton.backgroundColor = UIColor(hex: 0xEEEEF5)
         cancelButton.setTitleColor(UIColor.init(hex: 0x536EEB), for: .normal)
         cancelButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
@@ -82,7 +82,7 @@ class STAuthorization: KYBaseContentView {
     internal lazy var defineButton :UIButton = {
         let defineButton = UIButton.init(frame: .zero)
         defineButton.translatesAutoresizingMaskIntoConstraints = false
-        defineButton.setTitle("确定", for: .normal)
+        defineButton.setTitle("确定".string(), for: .normal)
         defineButton.tag = 101
         defineButton.backgroundColor = UIColor(hex: 0x536EEB)
         defineButton.setTitleColor(UIColor.init(hex: 0xFFFFFF), for: .normal)
@@ -98,6 +98,8 @@ class STAuthorization: KYBaseContentView {
     internal var attach : String
     internal var blockchain : Int
     internal var wallers : Array<STWallet>
+    //选中的钱包信息
+    internal var selectedWaller: STWallet
     
     @objc init(name : String,appcode : String,attach : String,blockchain : Int,wallers : Array<STWallet>){
         self.name = name
@@ -105,6 +107,9 @@ class STAuthorization: KYBaseContentView {
         self.attach = attach
         self.blockchain = blockchain
         self.wallers = wallers
+        let info = wallers.first!
+        info.isSelected = true
+        self.selectedWaller = info
         super.init(frame:.zero)
     }
     
@@ -146,17 +151,16 @@ class STAuthorization: KYBaseContentView {
             make?.trailing.equalTo()(self)?.offset()(-10)
             make?.size.mas_equalTo()(CGSize(width: 35, height: 35))
         }
-        
         descLabel.mas_makeConstraints { (make) in
+            make?.width.mas_equalTo()(UIScreen.main.bounds.width - 100)
             make?.leading.equalTo()(self)?.offset()(20)
             make?.trailing.equalTo()(self)?.offset()(-20)
             make?.top.equalTo()(iconView.mas_bottom)?.offset()(16)
         }
-        
         tableView.mas_makeConstraints { (make) in
             make?.top.equalTo()(descLabel.mas_bottom)?.offset()(20)
             make?.leading.trailing().equalTo()(descLabel)
-            make?.height.mas_equalTo()(50)
+            make?.height.mas_equalTo()(wallers.count >= 4 ? 200 : (50 * wallers.count))
         }
         
         cancelButton.mas_makeConstraints { (make) in
@@ -177,8 +181,7 @@ class STAuthorization: KYBaseContentView {
     
     @objc public func closeAction(sender : UIButton?) {
         if (self.delegate?.responds(to: #selector(STAuthorizationDelegate.didSelectedAuthorization(reslut:appcode:blockchain:wallet:balance:attach:name:))))! {
-            let info = wallers.first
-            self.delegate?.didSelectedAuthorization(reslut: (sender?.tag == 101 ? true : false), appcode: self.appcode, blockchain: self.blockchain, wallet: info?.contractAddress ?? "", balance: 0, attach: self.attach, name: self.name)
+            self.delegate?.didSelectedAuthorization(reslut: (sender?.tag == 101 ? true : false), appcode: self.appcode, blockchain: self.blockchain, wallet: self.selectedWaller.contractAddress , balance: 0, attach: self.attach, name: self.name)
         }
         
     }
@@ -196,7 +199,11 @@ extension STAuthorization : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+        self.selectedWaller.isSelected = false;
+        let info = wallers[indexPath.row]
+        info.isSelected = true
+        self.selectedWaller = info
+        self.tableView.reloadData()
     }
     
 }

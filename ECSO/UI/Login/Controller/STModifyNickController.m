@@ -78,6 +78,7 @@
     _textField = [[UITextField alloc]init];
     _textField.font = [STFont fontSize:16];
     _textField.textColor = HexRGB(0x292F48);
+    _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入昵称，最多5个字".string attributes:@{NSFontAttributeName:[STFont fontSize:17],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _textField.layer.borderColor = HexRGB(0xbcbcbc).CGColor;
     _textField.layer.borderWidth = 0.5;
@@ -102,7 +103,7 @@
     });
     
     UILabel *tipsLabel = [[UILabel alloc]init];
-    tipsLabel.text = @"好名字可以让你的朋友 更容易记住你。";
+    tipsLabel.text = @"好名字可以让你的朋友 更容易记住你。".string;
     tipsLabel.textColor = HexRGB(0x888888);
     tipsLabel.font = [STFont fontSize:12];
     [backgroundView addSubview:tipsLabel];
@@ -130,7 +131,7 @@
     __weak typeof(self) weakSelf = self;
     [self.request changeDisplayname:self.textField.text success:^(id object) {
         [STUserDefault setObjectValue:weakSelf.textField.text forKey:@"displayName"];
-        [SVProgressHelper customDismiss:true message:@"修改昵称成功" complete:^{
+        [SVProgressHelper customDismiss:true message:@"修改昵称成功".string complete:^{
             [weakSelf popViewController:nil];
         }];
     } fail:^(FAILCODE stateCode, NSString *error) {

@@ -58,7 +58,7 @@
     UILabel *tipLabel = [[UILabel alloc]init];
     tipLabel.textColor = SXColorMain;
     tipLabel.font = [STFont fontStatus:medium fontSize:22];
-    tipLabel.text = @"登录其他账户";
+    tipLabel.text = @"登录其他账户".string;
     [self.view addSubview:tipLabel];
     if ([STAppEnvs shareInstance].isIphoneX) {
         [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -168,8 +168,8 @@
 - (STInputView *)accountView {
     if (_accountView == nil) {
         _accountView = [[STInputView alloc]init];
-        _accountView.nameLabel.text = @"账号";
-        _accountView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"账户名由6-15位字母数字组成" attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+        _accountView.nameLabel.text = @"账号".string;
+        _accountView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"账户名由6-15位字母数字组成".string attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
         _accountView.textField.delegate = self;
     }
     return _accountView;
@@ -178,8 +178,8 @@
 - (STInputView *)pwdView {
     if (_pwdView == nil) {
         _pwdView = [[STInputView alloc]init];
-        _pwdView.nameLabel.text = @"密码";
-        _pwdView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入6-20位密码" attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+        _pwdView.nameLabel.text = @"密码".string;
+        _pwdView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入6-20位密码".string attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
         _pwdView.textField.secureTextEntry = true;
         [_pwdView.textField addTarget:self action:@selector(textFieldDidChangeValue:)forControlEvents:UIControlEventEditingChanged];
     }
@@ -189,8 +189,8 @@
 - (STInputView *)fixView {
     if (_fixView == nil) {
         _fixView = [[STInputView alloc]init];
-        _fixView.nameLabel.text = @"确认密码";
-        _fixView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请再次输入新密码" attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+        _fixView.nameLabel.text = @"确认密码".string;
+        _fixView.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请再次输入新密码".string attributes:@{NSFontAttributeName:[STFont fontSize:16],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
         _fixView.textField.secureTextEntry = true;
         [_fixView.textField addTarget:self action:@selector(textFieldDidChangeValue:)forControlEvents:UIControlEventEditingChanged];
     }
@@ -233,7 +233,7 @@
 
 
 - (void)nextBtnAction {
-    [SVProgressHelper showHUDWithStatus:@"正在注册..."];
+    [SVProgressHelper showHUDWithStatus:@"正在注册...".string];
     [self.request registerUser:self.accountView.textField.text password:self.pwdView.textField.text displayName:self.userName portrait:self.avatarUrl clientId:[STCacheManager shareInstance].getUUID success:^(id object) {
         STUser *user = object;
         [STUserDefault setObjectValue:user.token forKey:@"token"];
@@ -242,7 +242,7 @@
         [STUserDefault setObjectValue:user.userName forKey:@"userName"];
         [STUserDefault setObjectValue:user.displayName forKey:@"displayName"];
         [[STCacheManager shareInstance] saveWallers:user.wallets];
-        [SVProgressHelper customDismiss:true message:@"注册成功" complete:nil];
+        [SVProgressHelper customDismiss:true message:@"注册成功".string complete:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             // 主线程更新
             STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];

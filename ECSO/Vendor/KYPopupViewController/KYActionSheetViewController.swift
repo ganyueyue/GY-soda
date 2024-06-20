@@ -29,7 +29,7 @@ final public class KYActionSheetViewController: KYPopupViewController {
         self.customView = customView
         self.completion = completion
         self.gestureDismissal = gestureDismissal
-        self.cancelButton = KYPopupActionButton(title: "取消", height: 55, dismissOnTap: true, action: nil)
+            self.cancelButton = KYPopupActionButton(title: "取消".string(), height: 55, dismissOnTap: true, action: nil)
     }
 
 

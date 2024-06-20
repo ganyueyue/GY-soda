@@ -60,7 +60,7 @@
     if (_navView == nil) {
         _navView = [[STCustomNavView alloc]init];
         _navView.backgroundColor = HexRGB(0xf5f5f5);
-        _navView.titleLabel.text = @"用户信息";
+        _navView.titleLabel.text = @"用户信息".string;
         _navView.saveBtn.hidden = true;
     }
     return _navView;
@@ -105,10 +105,10 @@
     
     [self.iconView sx_setImagePlaceholdWithURL:[STUserDefault objectValueForKey:@"portrait"]];
     self.nickLabel.text = [STUserDefault objectValueForKey:@"displayName"];
-    accountLabel.text = [NSString stringWithFormat:@"账号:%@",[STUserDefault objectValueForKey:@"userName"]];
+    accountLabel.text = [NSString stringWithFormat:@"%@:%@",@"账号".string,[STUserDefault objectValueForKey:@"userName"]];
     
     STUserItem *item = [[STUserItem alloc] init];
-    item.titleLabel.text = @"设置昵称或别名";
+    item.titleLabel.text = @"设置昵称或别名".string;
     item.tag = 100;
     [item addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:item];
@@ -119,7 +119,7 @@
     }];
     
     STUserItem *item1 = [[STUserItem alloc] init];
-    item1.titleLabel.text = @"关于";
+    item1.titleLabel.text = @"关于".string;
     item1.tag = 101;
     [item1 addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:item1];

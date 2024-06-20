@@ -11,9 +11,10 @@ class STAuthorizationCell: UITableViewCell {
     
     @objc public var info : STWallet?  {
         didSet {
-            nameLabel.text = "ETH"
+            iconView.sx_setImagePlacehold(withURL: info?.tokenIcon ?? "", placeholderImage: UIImage(named: "icon_eth_logo")!)
+            nameLabel.text = info?.tokenName
             tipsLabel.text = info?.contractAddress
-            optionsButton.isSelected = true
+            optionsButton.isSelected = info!.isSelected
         }
     }
     
@@ -75,9 +76,6 @@ class STAuthorizationCell: UITableViewCell {
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(tipsLabel)
         self.contentView.addSubview(optionsButton)
-        iconView.image = UIImage(named: "icon_eth_logo")
-        nameLabel.text = "ETH"
-        tipsLabel.text = "0x0576ebbbb5dff352b632819f882657d33442c8ef"
         
         iconView.mas_makeConstraints { (make) in
             make?.leading.equalTo()(self.contentView)
@@ -96,7 +94,7 @@ class STAuthorizationCell: UITableViewCell {
         nameLabel.mas_makeConstraints { (make) in
             make?.leading.equalTo()(iconView.mas_trailing)?.offset()(11)
             make?.bottom.equalTo()(iconView.mas_centerY)?.offset()(-1)
-            make?.trailing.equalTo()(self.optionsButton.mas_leading)?.offset()(10)
+            make?.trailing.equalTo()(self.optionsButton.mas_leading)?.offset()(-10)
         }
         
         tipsLabel.mas_makeConstraints { (make) in

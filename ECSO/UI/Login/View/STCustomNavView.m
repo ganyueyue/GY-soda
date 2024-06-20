@@ -27,7 +27,7 @@
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.font = [STFont fontStatus:medium fontSize:20];
     self.titleLabel.textColor = SXColorMain;
-    self.titleLabel.text = @"修改昵称";
+    self.titleLabel.text = @"修改昵称".string;
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(backBtn.mas_trailing).offset(3);
@@ -35,7 +35,7 @@
     }];
     
     self.saveBtn = [[UIButton alloc]init];
-    [self.saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [self.saveBtn setTitle:@"保存".string forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:HexRGB(0x606060) forState:UIControlStateNormal];
     self.saveBtn.titleLabel.font = [STFont fontSize:16];
     self.saveBtn.tag = 101;

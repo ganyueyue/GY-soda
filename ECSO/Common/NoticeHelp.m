@@ -21,7 +21,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
 + (id)showChoiceAlertInViewController:(UIViewController *)viewController
                               message:(NSString *)message
                              tapBlock:(void (^)(NSInteger buttonIndex))tapBlock{
-    return  [NoticeHelp showAlertInViewController:viewController withIcon:@"" withTitle:@"提示" message:message cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" tapBlock:tapBlock];
+    return  [NoticeHelp showAlertInViewController:viewController withIcon:@"" withTitle:@"提示".string message:message cancelButtonTitle:@"取消".string destructiveButtonTitle:@"确定".string tapBlock:tapBlock];
 }
 
 + (id)showChoiceAlertInViewController:(UIViewController *)viewController
@@ -29,14 +29,14 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
                                 message:(NSString *)message
                                tapBlock:(void (^)(NSInteger buttonIndex))tapBlock
 {
-   return  [NoticeHelp showAlertInViewController:viewController withIcon:@"" withTitle:title message:message cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" tapBlock:tapBlock];
+   return  [NoticeHelp showAlertInViewController:viewController withIcon:@"" withTitle:title message:message cancelButtonTitle:@"取消".string destructiveButtonTitle:@"确定".string tapBlock:tapBlock];
 }
 
 
 + (id)showSureAlertInViewController:(UIViewController *)viewController
                             message:(NSString *)message
 {
-    return  [NoticeHelp showSureAlertInViewController:viewController title:@"提示" message:message tapBlock:nil];
+    return  [NoticeHelp showSureAlertInViewController:viewController title:@"提示".string message:message tapBlock:nil];
 }
 
 + (id)showSureAlertInViewController:(UIViewController *)viewController
@@ -44,7 +44,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
                             message:(NSString *)message
                            tapBlock:(void (^)(NSInteger buttonIndex))tapBlock
 {
-    return  [self showAlertInViewController:viewController withIcon:@"" withTitle:title message:message cancelButtonTitle:nil destructiveButtonTitle:@"确定" tapBlock:tapBlock];
+    return  [self showAlertInViewController:viewController withIcon:@"" withTitle:title message:message cancelButtonTitle:nil destructiveButtonTitle:@"确定".string tapBlock:tapBlock];
 }
 
 
@@ -153,7 +153,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
 
 
 +(id)showCustomPopViewController:(KYBaseContentView *)contentView complete:(void (^)())tapBlock {
-    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleSheet gestureDismissal:false completion:^{
+    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleSheet gestureDismissal:false offset:false completion:^{
     }];
 
     [alert bePresentedWithViewcontroller:nil animated:true completion:^{
@@ -166,7 +166,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
 }
 
 +(id)showCustomPopViewController:(KYBaseContentView *)contentView withGestureDismissal:(BOOL)gestureDismissal complete:(void (^)())tapBlock {
-    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleSheet gestureDismissal:gestureDismissal completion:^{
+    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleSheet gestureDismissal:gestureDismissal offset:true completion:^{
     }];
 
     [alert bePresentedWithViewcontroller:nil animated:true completion:^{
@@ -179,7 +179,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
 }
 
 +(id)showCustomPopViewController:(KYBaseContentView *)contentView withController:(UIViewController *)controller complete:(void (^)())tapBlock {
-    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleZoomIn gestureDismissal:false completion:^{
+    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleZoomIn gestureDismissal:false offset:false completion:^{
     }];
     
     [alert bePresentedWithViewcontroller:controller animated:true completion:^{
@@ -191,7 +191,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
     
 }
 +(id)showCustomPopViewController:(KYBaseContentView *)contentView duration:(NSTimeInterval)time  complete:(void (^)())tapBlock {
-    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleZoomIn gestureDismissal:false completion:^{
+    KYCustomPopViewController *alert = [[KYCustomPopViewController alloc] initWithContentView:contentView transitionStyle:KYPopupViewTransitionStyleZoomIn gestureDismissal:false offset:false completion:^{
     }];
     alert.timeDuration = time;
     alert.dismissCompletion = ^{
@@ -279,7 +279,7 @@ static NSInteger const ESAlertControllerBlocksFirstOtherButtonIndex = 2;
                               message:(NSString *)message
                              tapBlock:(void (^)(NSInteger buttonIndex))tapBlock
 {
-    return  [NoticeHelp showStyleAlertInViewController:viewController withTitle:title message:message cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" tapBlock:tapBlock];
+    return  [NoticeHelp showStyleAlertInViewController:viewController withTitle:title message:message cancelButtonTitle:@"取消".string destructiveButtonTitle:@"确定".string tapBlock:tapBlock];
 }
 
 + (id)showStyleAlertInViewController:(UIViewController *)viewController
