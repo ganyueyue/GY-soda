@@ -339,8 +339,8 @@
 
 - (void)showNavigtaionItem {
     NSMutableArray *menuList = [NSMutableArray array];
-    NSArray *icons = @[@"icon_menu_refresh",@"icon_menu_share",@"icon_menu_service"];
-    NSArray *names = @[@"刷    新".string,@"分    享".string,@"投    诉".string];
+    NSArray *icons = @[@"icon_menu_refresh",@"icon_menu_share"];//,@"icon_menu_service"
+    NSArray *names = @[@"刷    新".string,@"分    享".string];//,@"投    诉".string
     for (NSInteger index = 0; index < 3; index++) {
         STMenuInfo *info = [[STMenuInfo alloc]init];
         info.icon = icons[index];

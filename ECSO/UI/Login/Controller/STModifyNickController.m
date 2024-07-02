@@ -128,15 +128,16 @@
 
 - (void)saveChangeDisplayName {
     [self.view endEditing:true];
+    [STUserDefault setObjectValue:self.textField.text forKey:@"displayName"];
     __weak typeof(self) weakSelf = self;
-    [self.request changeDisplayname:self.textField.text success:^(id object) {
-        [STUserDefault setObjectValue:weakSelf.textField.text forKey:@"displayName"];
+//    [self.request changeDisplayname:self.textField.text success:^(id object) {
+//        [STUserDefault setObjectValue:weakSelf.textField.text forKey:@"displayName"];
         [SVProgressHelper customDismiss:true message:@"修改昵称成功".string complete:^{
             [weakSelf popViewController:nil];
         }];
-    } fail:^(FAILCODE stateCode, NSString *error) {
-        [SVProgressHelper dismissWithMsg:error];
-    }];
+//    } fail:^(FAILCODE stateCode, NSString *error) {
+//        [SVProgressHelper dismissWithMsg:error];
+//    }];
 }
 
 @end

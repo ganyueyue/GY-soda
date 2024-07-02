@@ -25,13 +25,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[STWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    NSString *token = [STUserDefault objectValueForKey:@"token"];
-    NSString *userId = [STUserDefault objectValueForKey:@"userId"];
-    if (token.length > 0) {
+//    NSString *token = [STUserDefault objectValueForKey:@"token"];
+//    NSString *userId = [STUserDefault objectValueForKey:@"userId"];
+//    if (token.length > 0) {
+//        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
+//        self.window.rootViewController = nav;
+//    } else if (userId.length > 0) {
+//        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STLoginController alloc] init]];
+//        self.window.rootViewController = nav;
+//    } else {
+//        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STNickAvatarController alloc] init]];
+//        self.window.rootViewController = nav;
+//    }
+    
+    NSString *displayName = [STUserDefault objectValueForKey:@"displayName"];
+    if (displayName.length > 0) {
         STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
-        self.window.rootViewController = nav;
-    } else if (userId.length > 0) {
-        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STLoginController alloc] init]];
         self.window.rootViewController = nav;
     } else {
         STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STNickAvatarController alloc] init]];

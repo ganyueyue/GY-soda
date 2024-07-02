@@ -18,7 +18,7 @@
 #else
 //开发环境
 #define KOpenWebPortUrl          @"http://im.szxiaooo.com:8888"
-#define KOpenSodaPortUrl         @"http://soda.bk111111.top"
+#define KOpenSodaPortUrl         @"http://www.soda888.top"
 #endif
 
 #endif /* SXConstant_h */

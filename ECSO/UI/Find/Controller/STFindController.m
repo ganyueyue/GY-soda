@@ -33,20 +33,22 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHistory:) name:kHistoryChangeNotification object:nil];
     
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [self getPasswordAddress];
-    });
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
     
-    NSString *portrait = [STUserDefault objectValueForKey:@"portrait"];
-    if (portrait.length > 0) {
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:portrait] forState:UIControlStateNormal];
-    }
+//    NSString *portrait = [STUserDefault objectValueForKey:@"portrait"];
+//    if (portrait.length > 0) {
+//        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:portrait] forState:UIControlStateNormal];
+//    }
+    [self.avatarBtn setImage:[[STCacheManager shareInstance]getSodaImage] forState:UIControlStateNormal];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self getPasswordAddress];
+    });
+    
 }
 
 - (STFindSearchView *)searchView {
@@ -94,10 +96,11 @@
     self.avatarBtn.layer.cornerRadius = 30;
     self.avatarBtn.clipsToBounds = true;
     [self.avatarBtn addTarget:self action:@selector(didSelectedAvatar) forControlEvents:UIControlEventTouchUpInside];
-    NSString *portrait = [STUserDefault objectValueForKey:@"portrait"];
-    if (portrait.length > 0) {
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:portrait] forState:UIControlStateNormal];
-    }
+//    NSString *portrait = [STUserDefault objectValueForKey:@"portrait"];
+//    if (portrait.length > 0) {
+//        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:portrait] forState:UIControlStateNormal];
+//    }
+    [self.avatarBtn setImage:[STCacheManager shareInstance].getSodaImage forState:UIControlStateNormal];
     [self.view addSubview:self.avatarBtn];
     [self.avatarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(20);
@@ -149,7 +152,9 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 STWebViewController *vc = [[STWebViewController alloc] init];
                 vc.urlString = string;
-                [self pushViewController:vc];
+                [self pushViewController:vc completion:^{
+                    pasteboard.string = @"";
+                }];
             });
         }
     }

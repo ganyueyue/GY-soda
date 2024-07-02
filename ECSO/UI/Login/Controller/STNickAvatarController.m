@@ -9,6 +9,8 @@
 #import "STInformationController.h"
 #import "TZImagePickerController.h"
 #import "STLoginController.h"
+#import "STFindController.h"
+#import "STNavigationController.h"
 #import "STHTTPRequest.h"
 @interface STNickAvatarController ()
 @property (nonatomic, strong)UIButton *avatarBtn;
@@ -56,19 +58,19 @@
         make.height.mas_offset(450);
     }];
     
-    UILabel *tipLabel = [[UILabel alloc]init];
-    tipLabel.textColor = SXColorMain;
-    tipLabel.font = [STFont fontStatus:medium fontSize:22];
-    tipLabel.text = @"登录其他账户".string;
-    tipLabel.userInteractionEnabled = true;
-    [self.view addSubview:tipLabel];
-    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.view).offset(-18);
-        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].tabBarHeight + 42);
-    }];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [tipLabel addGestureRecognizer:tap];
+//    UILabel *tipLabel = [[UILabel alloc]init];
+//    tipLabel.textColor = SXColorMain;
+//    tipLabel.font = [STFont fontStatus:medium fontSize:22];
+//    tipLabel.text = @"登录其他账户".string;
+//    tipLabel.userInteractionEnabled = true;
+//    [self.view addSubview:tipLabel];
+//    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.trailing.equalTo(self.view).offset(-18);
+//        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].tabBarHeight + 42);
+//    }];
+//
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+//    [tipLabel addGestureRecognizer:tap];
     
     UILabel *promptLabel = [[UILabel alloc]init];
     promptLabel.textColor = SXColorMain;
@@ -79,7 +81,8 @@
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.view).offset(-18);
         make.leading.equalTo(self.view).offset(18);
-        make.top.equalTo(tipLabel.mas_bottom).offset(55);
+        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].tabBarHeight + 100);
+//        make.top.equalTo(tipLabel.mas_bottom).offset(55);
     }];
     
     UILabel *hintLabel = [[UILabel alloc]init];
@@ -184,11 +187,13 @@
 
 - (void)saveLoginImage:(UIImage *)image {
     __weak typeof(self) weakSelf = self;
-    [self.request uploadPortrait:image success:^(NSDictionary *object) {
-        weakSelf.avatarUrl = object[@"url"];
-    } fail:^(FAILCODE stateCode, NSString *error) {
-        [SVProgressHelper dismissWithMsg:error];
-    }];
+    self.avatarUrl = @"123456";
+    [[STCacheManager shareInstance]saveImageCache:image];
+//    [self.request uploadPortrait:image success:^(NSDictionary *object) {
+//        weakSelf.avatarUrl = object[@"url"];
+//    } fail:^(FAILCODE stateCode, NSString *error) {
+//        [SVProgressHelper dismissWithMsg:error];
+//    }];
     
 }
 
@@ -197,10 +202,17 @@
         [SVProgressHelper dismissWithMsg:@"请先上传头像"];
         return;
     }
-    STInformationController *vc = [[STInformationController alloc]init];
-    vc.userName = self.textField.text;
-    vc.avatarUrl = self.avatarUrl;
-    [self pushViewController:vc];
+//    STInformationController *vc = [[STInformationController alloc]init];
+//    vc.userName = self.textField.text;
+//    vc.avatarUrl = self.avatarUrl;
+//    [self pushViewController:vc];
+    
+    [STUserDefault setObjectValue:self.textField.text forKey:@"displayName"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 主线程更新
+        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
+        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+    });
 }
 
 - (void)tap:(UITapGestureRecognizer *)tap {

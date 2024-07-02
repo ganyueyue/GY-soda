@@ -130,11 +130,11 @@ class STAuthorization: KYBaseContentView {
         addSubview(cancelButton)
         addSubview(defineButton)
         
-        let icon = STUserDefault.objectValue(forKey: "portrait")
+//        let icon = STUserDefault.objectValue(forKey: "portrait")
         let name = STUserDefault.objectValue(forKey: "displayName")
-        iconView.sx_setImagePlacehold(withURL: icon as! String)
+//        iconView.sx_setImagePlacehold(withURL: icon as! String)
         titleLabel.text = name as? String
-        
+        iconView.image = STCacheManager.shareInstance().getSodaImage()
         iconView.mas_makeConstraints { (make) in
             make?.top.leading().equalTo()(self)?.offset()(20)
             make?.size.mas_equalTo()(CGSize(width: 45, height: 45))

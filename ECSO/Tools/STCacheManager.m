@@ -147,4 +147,19 @@ static FMDatabase *_db;
     return info;
 }
 
+//保存用户图片
+- (void)saveImageCache:(UIImage *)image {
+    NSString *path_document = NSHomeDirectory();
+    NSString *imagePath = [path_document stringByAppendingString:@"/Documents/pic.png"];
+    //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
+    [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
+}
+
+- (UIImage *)getSodaImage {
+    NSString *path_document = NSHomeDirectory();
+    NSString *imagePath = [path_document stringByAppendingString:@"/Documents/pic.png"];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    return image;
+}
+
 @end

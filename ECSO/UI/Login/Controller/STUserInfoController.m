@@ -103,9 +103,10 @@
         make.trailing.equalTo(self.view).offset(-20);
     }];
     
-    [self.iconView sx_setImagePlaceholdWithURL:[STUserDefault objectValueForKey:@"portrait"]];
+//    [self.iconView sx_setImagePlaceholdWithURL:[STUserDefault objectValueForKey:@"portrait"]];
+    self.iconView.image = [[STCacheManager shareInstance] getSodaImage ];
     self.nickLabel.text = [STUserDefault objectValueForKey:@"displayName"];
-    accountLabel.text = [NSString stringWithFormat:@"%@:%@",@"账号".string,[STUserDefault objectValueForKey:@"userName"]];
+//    accountLabel.text = [NSString stringWithFormat:@"%@:%@",@"账号".string,[STUserDefault objectValueForKey:@"userName"]];
     
     STUserItem *item = [[STUserItem alloc] init];
     item.titleLabel.text = @"设置昵称或别名".string;
@@ -158,13 +159,15 @@
 }
 
 - (void)saveLoginImage:(UIImage *)image {
-    __weak typeof(self) weakSelf = self;
-    [SVProgressHelper showHUDWithStatus:@"正在上传..."];
-    [self.request uploadPortrait:image success:^(NSDictionary *object) {
-        [weakSelf changePortrait:object[@"url"] withImage:image];
-    } fail:^(FAILCODE stateCode, NSString *error) {
-        [SVProgressHelper dismissWithMsg:error];
-    }];
+//    __weak typeof(self) weakSelf = self;
+    self.iconView.image = image;
+    [[STCacheManager shareInstance] saveImageCache:image];
+//    [SVProgressHelper showHUDWithStatus:@"正在上传..."];
+//    [self.request uploadPortrait:image success:^(NSDictionary *object) {
+//        [weakSelf changePortrait:object[@"url"] withImage:image];
+//    } fail:^(FAILCODE stateCode, NSString *error) {
+//        [SVProgressHelper dismissWithMsg:error];
+//    }];
     
 }
 

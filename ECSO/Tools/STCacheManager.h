@@ -37,6 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 //取区块链网络
 - (NSArray *)getBlockChains;
 
+//保存用户图片
+- (void)saveImageCache:(UIImage *)image;
+
+- (UIImage *)getSodaImage;
+
 @end
 
 NS_ASSUME_NONNULL_END
