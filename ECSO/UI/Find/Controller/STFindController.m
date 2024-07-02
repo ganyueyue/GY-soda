@@ -148,7 +148,7 @@
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];//获取系统等剪切板
     if (pasteboard.string.length > 0 && pasteboard.strings.count == 1) {
         NSString *string = pasteboard.string;
-        if ([NSString isCheckUrl:string.lowercaseString]) {
+        if ([NSString checkUrlWithString:string.lowercaseString]) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 STWebViewController *vc = [[STWebViewController alloc] init];
                 vc.urlString = string;
@@ -156,6 +156,8 @@
                     pasteboard.string = @"";
                 }];
             });
+        } else {
+            pasteboard.string = @"";
         }
     }
 }
@@ -226,15 +228,18 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([NSString isCheckUrl:textField.text.lowercaseString]) {
+    if ([NSString checkUrlWithString:textField.text.lowercaseString]) {
         STWebViewController *vc = [[STWebViewController alloc] init];
         vc.urlString = textField.text;
-        [self pushViewController:vc];
+        [self pushViewController:vc completion:^{
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];//获取系统等剪切板
+            pasteboard.string = @"";
+        }];
     }
     [self.view endEditing:true];
     return true;
 }
-
+//http://www.baidu.com
 - (void)changeHistory:(NSNotification *)notification {
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:[[STCacheManager shareInstance]getHistory]];

@@ -96,18 +96,23 @@ class STScanViewController: LBXScanViewController {
         guard let string = result.strScanned else {
             return
         }
-        let vc = STWebViewController()
-        vc.urlString = string
-        self.navigationController?.pushViewController(vc, animated: true,completion: {
-            var controllers : [UIViewController] = NSMutableArray() as! [UIViewController]
-            let list : [UIViewController] = self.navigationController!.viewControllers
-            for(_, element) in list.enumerated() {
-                if (element != self) {
-                    controllers.append(element)
+        if NSString.checkUrl(with: string) {
+            let vc = STWebViewController()
+            vc.urlString = string
+            self.navigationController?.pushViewController(vc, animated: true,completion: {
+                var controllers : [UIViewController] = NSMutableArray() as! [UIViewController]
+                let list : [UIViewController] = self.navigationController!.viewControllers
+                for(_, element) in list.enumerated() {
+                    if (element != self) {
+                        controllers.append(element)
+                    }
                 }
-            }
-            self.navigationController?.viewControllers = controllers
-        })
+                self.navigationController?.viewControllers = controllers
+            })
+        } else {
+            NoticeHelp.showSureAlert(in: self, message: string)
+        }
+        
     }
 
     func drawBottomItems() {

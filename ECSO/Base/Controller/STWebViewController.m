@@ -341,7 +341,7 @@
     NSMutableArray *menuList = [NSMutableArray array];
     NSArray *icons = @[@"icon_menu_refresh",@"icon_menu_share"];//,@"icon_menu_service"
     NSArray *names = @[@"刷    新".string,@"分    享".string];//,@"投    诉".string
-    for (NSInteger index = 0; index < 3; index++) {
+    for (NSInteger index = 0; index < icons.count; index++) {
         STMenuInfo *info = [[STMenuInfo alloc]init];
         info.icon = icons[index];
         info.menuName = names[index];
@@ -496,7 +496,6 @@
         [SVProgressHelper dismissWithMsg:@"图片保存失败".string];
     } else {
         // Show message image successfully saved
-        __weak typeof(self) weakSelf = self;
         [SVProgressHelper dismissWithMsg:@"图片保存成功".string];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"weixin://"] options:@{} completionHandler:nil];
@@ -523,7 +522,7 @@
             [[STCacheManager shareInstance]saveCache:resp.lastObject withUrl:URL.absoluteString withIcon:resp.firstObject];
         } else if (resp.count == 1) {
             NSString *string = resp.firstObject;
-            if ([NSString isCheckUrl:string]) {//图片
+            if ([NSString checkUrlWithString:string]) {//图片
                 [[STCacheManager shareInstance]saveCache:@"" withUrl:URL.absoluteString withIcon:string];
             } else {//标题
                 [[STCacheManager shareInstance]saveCache:string withUrl:URL.absoluteString withIcon:@"https://openweb3.oss-cn-shanghai.aliyuncs.com/1717120200358common_placeholder.png"];
@@ -666,13 +665,12 @@
         NSInteger blockchain = [info.args[@"blockchain"] integerValue];
         NSMutableArray *list = [NSMutableArray array];
         for (STWallet *waller in [[STCacheManager shareInstance] getWallers]) {
-            if (waller.blockchain == 32) {
+            if (waller.blockchain == blockchain) {
                 [list addObject:waller];
             }
         }
         if (list.count <= 0) {
-            [SVProgressHelper dismissWithMsg:@"没有可选账号"];
-            return;
+            [list addObjectsFromArray:[[STCacheManager shareInstance] getWallers]];
         }
         self.authorizationView = [[STAuthorization alloc] initWithName:info.name appcode:info.args[@"appcode"] attach:info.attach blockchain:blockchain wallers:list.copy];
         self.authorizationView.delegate = self;
@@ -714,7 +712,8 @@
 - (void)didSelectedAuthorizationWithReslut:(BOOL)reslut appcode:(NSString *)appcode blockchain:(NSInteger)blockchain wallet:(NSString *)wallet balance:(NSInteger)balance attach:(NSString *)attach name:(NSString *)name {
     [self.popupViewController dismiss:nil];
     if (reslut) {
-        NSString *avatar = [STUserDefault objectValueForKey:@"portrait"];
+//        NSString *avatar = [STUserDefault objectValueForKey:@"portrait"];
+        NSString *avatar = [NSString encodeToBase64String:[[STCacheManager shareInstance]getSodaImage]];
         NSString *displayName = [STUserDefault objectValueForKey:@"displayName"];
         NSString *authCode = [NSString md5:[NSString stringWithFormat:@"%@%@",[STUserDefault objectValueForKey:@"userId"],appcode]];
         NSString *text = [NSString stringWithFormat:@"{\"result\":{\"name\":\"%@\",\"profile\":\"%@\",\"wallet\":\"%@\",\"balance\":\"%ld\",\"authcode\":\"%@\"},\"error\":\"0\",\"attach\":\"%@\",\"name\":\"%@\"}",displayName,avatar,wallet,balance,authCode,attach,name];

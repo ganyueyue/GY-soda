@@ -58,7 +58,7 @@ final public class KYAlertContentView: KYBaseContentView {
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.contentMode = .scaleAspectFit
         iconView.clipsToBounds = true
-        iconView.image = UIImage(named: "icon_alert")
+        iconView.image = UIImage(named: "common_logo")
         return iconView
     }()
 

@@ -50,8 +50,6 @@
         return NO;
     if (url.length > 4 && [[url substringToIndex:4] isEqualToString:@"www."]) {
         url = [NSString stringWithFormat:@"http://%@",url];
-    } else {
-        url = url;
     }
     NSString *regex =@"[a-zA-z]+://[^\\s]*";
         NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
@@ -61,8 +59,7 @@
 
 //是否是网址
 + (BOOL)isCheckUrl:(NSString *)url {
-    //((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?
-    NSString *regex =@"((?:http|https)://)?(?:[a-zA-Z0-9.-]+.)+[a-zA-Z]{2,}(?:/[^s]*)?";
+    NSString *regex =@"((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?";
     NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [urlTest evaluateWithObject:url];
 }
