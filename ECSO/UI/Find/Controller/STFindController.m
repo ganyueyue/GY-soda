@@ -33,6 +33,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHistory:) name:kHistoryChangeNotification object:nil];
     
+    NSLog(@"%@",[[STCacheManager shareInstance] getRecommend]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -148,7 +149,7 @@
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];//获取系统等剪切板
     if (pasteboard.string.length > 0 && pasteboard.strings.count == 1) {
         NSString *string = pasteboard.string;
-        if ([NSString checkUrlWithString:string.lowercaseString]) {
+        if ([NSString isCheckUrl:string.lowercaseString]) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 STWebViewController *vc = [[STWebViewController alloc] init];
                 vc.urlString = string;
@@ -163,25 +164,29 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (self.dataArray.count == 0) {
+    if (self.dataArray.count == 0 && section == 0) {
         return nil;
     }
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
     sectionView.backgroundColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 100, 30)];
     titleLabel.font = [STFont fontStatus:medium fontSize:15];
-    titleLabel.text = @"最近访问".string;
     titleLabel.textColor = HexRGB(0x606060);
     [sectionView addSubview:titleLabel];
-    UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth - 45, 15, 30, 30)];
-    [deleteBtn setImage:[UIImage imageNamed:@"find_delete"] forState:UIControlStateNormal];
-    [deleteBtn addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
-    [sectionView addSubview:deleteBtn];
+    if (section == 0) {
+        titleLabel.text = @"最近访问".string;
+        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth - 45, 15, 30, 30)];
+        [deleteBtn setImage:[UIImage imageNamed:@"find_delete"] forState:UIControlStateNormal];
+        [deleteBtn addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+        [sectionView addSubview:deleteBtn];
+    } else {
+        titleLabel.text = @"推荐网址".string;
+    }
     return sectionView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.dataArray.count == 0) {
+    if (self.dataArray.count == 0 && section == 0) {
         return 0.001;
     }
     return 60;
@@ -196,30 +201,48 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.001;
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
+    if (section == 0) {
+        return self.dataArray.count;
+    }
+    return [[STCacheManager shareInstance] getRecommend].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     STVisitCell *cell = [tableView dequeueReusableCellWithIdentifier:[STVisitCell className] forIndexPath:indexPath];
-    cell.webInfo = self.dataArray[indexPath.row];
+    if (indexPath.section == 0) {
+        cell.webInfo = self.dataArray[indexPath.row];
+    } else {
+        cell.webInfo = [[STCacheManager shareInstance] getRecommend][indexPath.row];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     STWebViewController *vc = [[STWebViewController alloc] init];
-    STWebInfo *info = self.dataArray[indexPath.row];
-    vc.urlString = info.url;
+    if (indexPath.section == 0) {
+        STWebInfo *info = self.dataArray[indexPath.row];
+        vc.urlString = info.url;
+    } else {
+        STWebInfo *info = [[STCacheManager shareInstance] getRecommend][indexPath.row];
+        vc.urlString = info.url;
+    }
     [self pushViewController:vc];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
+    if (indexPath.section == 0) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete && indexPath.section == 0) {
         STWebInfo *info = self.dataArray[indexPath.row];
         [self.dataArray removeObjectAtIndex:indexPath.row];
         [self.tableView reloadData];
@@ -228,7 +251,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([NSString checkUrlWithString:textField.text.lowercaseString]) {
+    if ([NSString isCheckUrl:textField.text.lowercaseString]) {
         STWebViewController *vc = [[STWebViewController alloc] init];
         vc.urlString = textField.text;
         [self pushViewController:vc completion:^{
@@ -239,7 +262,7 @@
     [self.view endEditing:true];
     return true;
 }
-//http://www.baidu.com
+
 - (void)changeHistory:(NSNotification *)notification {
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:[[STCacheManager shareInstance]getHistory]];

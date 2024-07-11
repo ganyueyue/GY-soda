@@ -8,5 +8,10 @@
 #import "STWebInfo.h"
 
 @implementation STWebInfo
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"title" : @[@"name",@"title"],
+             @"url" : @[@"url",@"herf"]
+             };
+}
 @end

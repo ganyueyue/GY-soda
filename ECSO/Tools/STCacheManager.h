@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIImage *)getSodaImage;
 
+- (void)saveRecommendCache:(NSArray *)recommend;
+
+- (NSArray *)getRecommend;
+
 @end
 
 NS_ASSUME_NONNULL_END

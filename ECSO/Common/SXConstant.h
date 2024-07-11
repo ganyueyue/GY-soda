@@ -14,11 +14,11 @@
 #ifdef DEBUG
 //生产环境
 #define KOpenWebPortUrl          @"http://im.szxiaooo.com:8888"
-#define KOpenSodaPortUrl         @"http://www.soda888.top"//http://soda.bk111111.top
+#define KOpenSodaPortUrl         @"http://www.collweb.top/"//http://soda.bk111111.top
 #else
 //开发环境
 #define KOpenWebPortUrl          @"http://im.szxiaooo.com:8888"
-#define KOpenSodaPortUrl         @"http://www.soda888.top"
+#define KOpenSodaPortUrl         @"http://www.collweb.top/"
 #endif
 
 #endif /* SXConstant_h */

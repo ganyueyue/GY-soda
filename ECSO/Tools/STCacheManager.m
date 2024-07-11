@@ -147,6 +147,35 @@ static FMDatabase *_db;
     return info;
 }
 
+- (void)saveRecommendCache:(NSArray *)recommend {
+    BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '002';"]];
+    if (success) {
+        NSLog(@"删除成功");
+    }
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:recommend requiringSecureCoding:YES error:nil];
+    if (data == nil) {
+        return;
+    }
+    if ([_db executeUpdate:@"insert into t_news (userID,dict) values(?,?)",@"002",data]) {
+        NSLog(@"插入成功");
+    }else{
+        NSLog(@"插入失败");
+    }
+}
+
+- (NSArray *)getRecommend {
+    FMResultSet *set = [_db executeQuery:@"select * from t_news where userID = '002' order by id desc;"];
+    NSMutableArray *array = [NSMutableArray array];
+    while ([set next]) {
+        NSData *data = [set dataForColumn:@"dict"];
+        NSArray *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if(dic){
+            array = [STWebInfo mj_objectArrayWithKeyValuesArray:dic];
+        }
+    }
+    return array;
+}
+
 //保存用户图片
 - (void)saveImageCache:(UIImage *)image {
     NSString *path_document = NSHomeDirectory();

@@ -40,7 +40,7 @@
     _platform = platform;
     self.titleLabel.text = _platform.name;
     
-    if ([NSString checkUrlWithString:_platform.icon]) {
+    if ([NSString isCheckUrl:_platform.icon]) {
         [self.iconView sx_setImagePlaceholdWithURL:_platform.icon];
     } else if ([_platform.icon containsString:@"res@"]) {
         NSString *iconString = [_platform.icon stringByReplacingOccurrencesOfString:@"res@" withString:@""];

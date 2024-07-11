@@ -84,7 +84,7 @@
     
     SXBaseSessionManager *manager = [self AFHttpJsonSodaRequestManager];
     
-    _sodaConfOp = [manager GET:@"/soda_conf.json" parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+    _sodaConfOp = [manager GET:@"/collector_conf.json" parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.sodaConfOp = nil;

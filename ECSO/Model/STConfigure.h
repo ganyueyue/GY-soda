@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)NSArray *blockchainConfList;
 @property (nonatomic, strong)NSDictionary *appVerConf;
 @property (nonatomic, strong)NSArray *tokenConfList;
+@property (nonatomic, strong)NSArray *recommend;
 @end
 
 NS_ASSUME_NONNULL_END

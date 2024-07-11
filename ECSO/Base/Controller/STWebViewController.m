@@ -522,7 +522,7 @@
             [[STCacheManager shareInstance]saveCache:resp.lastObject withUrl:URL.absoluteString withIcon:resp.firstObject];
         } else if (resp.count == 1) {
             NSString *string = resp.firstObject;
-            if ([NSString checkUrlWithString:string]) {//图片
+            if ([NSString isCheckUrl:string]) {//图片
                 [[STCacheManager shareInstance]saveCache:@"" withUrl:URL.absoluteString withIcon:string];
             } else {//标题
                 [[STCacheManager shareInstance]saveCache:string withUrl:URL.absoluteString withIcon:@"https://openweb3.oss-cn-shanghai.aliyuncs.com/1717120200358common_placeholder.png"];

@@ -108,7 +108,7 @@
 
 
 - (void)getImageUrl:(NSString *)imageUrl {
-    if ([NSString checkUrlWithString:imageUrl] == false) {
+    if ([NSString isCheckUrl:imageUrl] == false) {
         [SVProgressHelper dismissHUD];
         [SVProgressHelper dismissWithMsg:@"分享链接有误"];
         [self hidden];

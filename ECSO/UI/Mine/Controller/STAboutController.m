@@ -126,15 +126,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         STWebViewController *vc = [[STWebViewController alloc]init];
-        vc.urlString = [STCacheManager shareInstance].getAPPInfo.appDisclaimerUrl;
+        vc.urlString = @"http://www.collweb.top/disclaimer.html";
         [self pushViewController:vc];
     } else if (indexPath.row == 1) {
         STWebViewController *vc = [[STWebViewController alloc]init];
-        vc.urlString = [STCacheManager shareInstance].getAPPInfo.appUserAgreementUrl;
+        vc.urlString = @"http://www.collweb.top/terms.html";
         [self pushViewController:vc];
     } else if (indexPath.row == 2) {
         STWebViewController *vc = [[STWebViewController alloc]init];
-        vc.urlString = [STCacheManager shareInstance].getAPPInfo.appPrivacyPolicyUrl;
+        vc.urlString = @"http://www.collweb.top/privacy_policy.html";
         [self pushViewController:vc];
     }
 }

@@ -96,8 +96,9 @@
     [self.request getSodaConfSuccess:^(id object) {
         STConfigure *info = object;
         [[STCacheManager shareInstance] saveAPPInfo:info.appConf];
-        [[STCacheManager shareInstance] saveWallers:info.tokenConfList];
-        [[STCacheManager shareInstance] saveBlockChain:info.blockchainConfList];
+        [[STCacheManager shareInstance] saveRecommendCache:info.recommend];
+//        [[STCacheManager shareInstance] saveWallers:info.tokenConfList];
+//        [[STCacheManager shareInstance] saveBlockChain:info.blockchainConfList];
     } fail:^(FAILCODE stateCode, NSString *error) {
         
     }];
@@ -117,7 +118,7 @@
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];//获取系统等剪切板
     if (pasteboard.string.length > 0 && pasteboard.strings.count == 1) {
         NSString *string = pasteboard.string;
-        if ([NSString checkUrlWithString:string.lowercaseString]) {
+        if ([NSString isCheckUrl:string.lowercaseString]) {
             STWebViewController *vc = [[STWebViewController alloc] init];
             vc.urlString = string;
             UIViewController *topMost = [UIWindow lx_topMostController];
