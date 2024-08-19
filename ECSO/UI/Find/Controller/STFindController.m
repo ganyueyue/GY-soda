@@ -44,7 +44,7 @@
 //    if (portrait.length > 0) {
 //        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:portrait] forState:UIControlStateNormal];
 //    }
-    [self.avatarBtn setImage:[[STCacheManager shareInstance]getSodaImage] forState:UIControlStateNormal];
+//    [self.avatarBtn setImage:[[STCacheManager shareInstance]getSodaImage] forState:UIControlStateNormal];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self getPasswordAddress];
@@ -93,21 +93,21 @@
 
 - (void)createSubView {
     __weak typeof(self) weakSelf = self;
-    self.avatarBtn = [[UIButton alloc]init];
-    self.avatarBtn.layer.cornerRadius = 30;
-    self.avatarBtn.clipsToBounds = true;
-    [self.avatarBtn addTarget:self action:@selector(didSelectedAvatar) forControlEvents:UIControlEventTouchUpInside];
+//    self.avatarBtn = [[UIButton alloc]init];
+//    self.avatarBtn.layer.cornerRadius = 30;
+//    self.avatarBtn.clipsToBounds = true;
+//    [self.avatarBtn addTarget:self action:@selector(didSelectedAvatar) forControlEvents:UIControlEventTouchUpInside];
 //    NSString *portrait = [STUserDefault objectValueForKey:@"portrait"];
 //    if (portrait.length > 0) {
 //        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:portrait] forState:UIControlStateNormal];
 //    }
-    [self.avatarBtn setImage:[STCacheManager shareInstance].getSodaImage forState:UIControlStateNormal];
-    [self.view addSubview:self.avatarBtn];
-    [self.avatarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view).offset(20);
-        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].statusBarHeight + 40);
-        make.width.height.mas_offset(60);
-    }];
+//    [self.avatarBtn setImage:[STCacheManager shareInstance].getSodaImage forState:UIControlStateNormal];
+//    [self.view addSubview:self.avatarBtn];
+//    [self.avatarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.trailing.equalTo(self.view).offset(-20);
+//        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].statusBarHeight + 40);
+//        make.width.height.mas_offset(60);
+//    }];
     
     UIImageView *logoView = [[UIImageView alloc] init];
     logoView.image = [UIImage imageNamed:@"common_logo"];
@@ -116,7 +116,7 @@
     [self.view addSubview:logoView];
     [logoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.avatarBtn.mas_bottom).offset(60);
+        make.top.equalTo(self.view).offset(120);
         make.width.height.mas_offset(110);
     }];
     

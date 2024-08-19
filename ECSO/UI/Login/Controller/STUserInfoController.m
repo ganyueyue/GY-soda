@@ -33,12 +33,12 @@
         make.height.mas_offset([STAppEnvs shareInstance].statusBarHeight + 50);
     }];
     
-    __weak typeof(self) weakSelf = self;
-    self.navView.clickBlock = ^(NSInteger index) {
-        if (index == 0) {
-            [weakSelf backAction:nil];
-        }
-    };
+//    __weak typeof(self) weakSelf = self;
+//    self.navView.clickBlock = ^(NSInteger index) {
+//        if (index == 0) {
+//            [weakSelf backAction:nil];
+//        }
+//    };
     
     [self createSubView];
 }
@@ -62,6 +62,7 @@
         _navView.backgroundColor = HexRGB(0xf5f5f5);
         _navView.titleLabel.text = @"用户信息".string;
         _navView.saveBtn.hidden = true;
+        _navView.backBtn.hidden = true;
     }
     return _navView;
 }

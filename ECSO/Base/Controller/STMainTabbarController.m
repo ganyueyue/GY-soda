@@ -9,6 +9,7 @@
 #import "STMainTabbarController.h"
 #import "STNavigationController.h"
 #import "STFindController.h"
+#import "STUserInfoController.h"
 @interface STMainTabbarController ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong)NSMutableArray *controllers;
@@ -54,6 +55,9 @@ static STMainTabbarController* _instance = nil;
     STFindController *findVc = [[STFindController alloc]init];
     STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:findVc];
     [self.controllers addObject:nav];
+    STUserInfoController *vc = [[STUserInfoController alloc] init];
+    STNavigationController *nav1 = [[STNavigationController alloc] initWithRootViewController:vc];
+    [self.controllers addObject:nav1];
     self.viewControllers = self.controllers;
     self.selectedIndex = 0;
     [self createSystemTabbar];
@@ -83,16 +87,16 @@ static STMainTabbarController* _instance = nil;
     NSMutableArray *imgNameSel = [NSMutableArray arrayWithCapacity:0];
     NSMutableArray *titleName = [NSMutableArray arrayWithCapacity:0];
         
-    [imgNameNor addObject:@"icon_tabbar_home_nor"];
-    [imgNameSel addObject:@"icon_tabbar_home_sel"];
+    [imgNameNor addObject:@"icon_home_nor"];
+    [imgNameSel addObject:@"icon_home_sel"];
     [titleName addObject:@"首页"];
 
-    [imgNameNor addObject:@"icon_tabbar_discover_nor"];
-    [imgNameSel addObject:@"icon_tabbar_discover_sel"];
-    [titleName addObject:@"发现"];
+//    [imgNameNor addObject:@"icon_tabbar_discover_nor"];
+//    [imgNameSel addObject:@"icon_tabbar_discover_sel"];
+//    [titleName addObject:@"发现"];
 
-    [imgNameNor addObject:@"icon_tabbar_me_nor"];
-    [imgNameSel addObject:@"icon_tabbar_me_sel"];
+    [imgNameNor addObject:@"icon_me_nor"];
+    [imgNameSel addObject:@"icon_me_sel"];
     [titleName addObject:@"我的"];
     
     for (NSInteger i = 0; i < self.controllers.count; i++) {

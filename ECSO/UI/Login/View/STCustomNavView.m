@@ -18,6 +18,7 @@
     backBtn.tag = 100;
     [backBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backBtn];
+    self.backBtn = backBtn;
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self).offset(3);
         make.bottom.equalTo(self).offset(-5);

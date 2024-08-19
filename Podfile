@@ -19,7 +19,7 @@ target 'ECSO' do
   pod 'FMDB'
   pod 'SAMKeychain'
 #  pod 'EtherKit'
-#  pod 'BigInt'
+  pod 'BigInt'
   target 'ECSOTests' do
     inherit! :search_paths
     # Pods for testing

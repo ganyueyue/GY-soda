@@ -40,8 +40,8 @@
     
     NSString *displayName = [STUserDefault objectValueForKey:@"displayName"];
     if (displayName.length > 0) {
-        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
-        self.window.rootViewController = nav;
+//        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
+        self.window.rootViewController = [STMainTabbarController shareInstance];
     } else {
         STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STNickAvatarController alloc] init]];
         self.window.rootViewController = nav;

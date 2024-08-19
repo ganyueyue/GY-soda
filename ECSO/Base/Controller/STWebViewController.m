@@ -14,7 +14,6 @@
 #import "STShare.h"
 #import "STMenuInfo.h"
 #import "NSData+Extension.h"
-#import "UIColor+Extension.h"
 #import "NSDictionary+Extension.h"
 #import "STShareView.h"
 #import "STShotView.h"

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0FCD0D9854AC8646A744003C /* Pods_ECSO_ECSOUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28225E6428D2AA548B015D /* Pods_ECSO_ECSOUITests.framework */; };
+		1B2099DB2C4651EB004FBC66 /* BRBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2099CE2C4651EB004FBC66 /* BRBaseView.m */; };
+		1B2099DC2C4651EB004FBC66 /* BRDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2099D12C4651EB004FBC66 /* BRDatePickerView.m */; };
+		1B2099DD2C4651EB004FBC66 /* NSDate+BRPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2099D32C4651EB004FBC66 /* NSDate+BRPickerView.m */; };
+		1B2099DE2C4651EB004FBC66 /* BRStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2099D62C4651EB004FBC66 /* BRStringPickerView.m */; };
 		1B346EFA2BFD8B6400560B77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346EF92BFD8B6400560B77 /* AppDelegate.m */; };
 		1B346F032BFD8B6400560B77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B346F012BFD8B6400560B77 /* Main.storyboard */; };
 		1B346F052BFD8B6600560B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B346F042BFD8B6600560B77 /* Assets.xcassets */; };
@@ -22,7 +26,6 @@
 		1B346F652BFD9C5400560B77 /* UINavigationController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F3F2BFD9C5400560B77 /* UINavigationController+Extension.m */; };
 		1B346F662BFD9C5400560B77 /* UIView+Corner.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F412BFD9C5400560B77 /* UIView+Corner.m */; };
 		1B346F672BFD9C5400560B77 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F422BFD9C5400560B77 /* UIView+Extension.m */; };
-		1B346F682BFD9C5400560B77 /* UITableView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F432BFD9C5400560B77 /* UITableView+Extension.m */; };
 		1B346F692BFD9C5400560B77 /* NSAttributedString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F442BFD9C5400560B77 /* NSAttributedString+Extension.m */; };
 		1B346F6A2BFD9C5400560B77 /* UIImageView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F462BFD9C5400560B77 /* UIImageView+Extension.m */; };
 		1B346F6B2BFD9C5400560B77 /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F492BFD9C5400560B77 /* UIAlertController+Blocks.m */; };
@@ -30,12 +33,9 @@
 		1B346F6D2BFD9C5400560B77 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F4E2BFD9C5400560B77 /* NSDate+Extension.m */; };
 		1B346F6F2BFD9C5400560B77 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F502BFD9C5400560B77 /* UIImage+Extension.m */; };
 		1B346F702BFD9C5400560B77 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F512BFD9C5400560B77 /* NSObject+Extension.m */; };
-		1B346F712BFD9C5400560B77 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F522BFD9C5400560B77 /* UIColor+Extension.m */; };
 		1B346F722BFD9C5400560B77 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F542BFD9C5400560B77 /* UIViewController+Extension.m */; };
 		1B346F732BFD9C5400560B77 /* NSData+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F552BFD9C5400560B77 /* NSData+Extension.m */; };
 		1B346F742BFD9C5400560B77 /* UIButton+EdgeInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F592BFD9C5400560B77 /* UIButton+EdgeInsets.m */; };
-		1B346F752BFD9C5400560B77 /* UIView+ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F5D2BFD9C5400560B77 /* UIView+ViewController.m */; };
-		1B346F762BFD9C5400560B77 /* UITapGestureRecognizer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F5E2BFD9C5400560B77 /* UITapGestureRecognizer+Extension.m */; };
 		1B346F772BFD9C5400560B77 /* UIWindow+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F602BFD9C5400560B77 /* UIWindow+Helper.m */; };
 		1B346F862BFD9D5500560B77 /* STPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F7A2BFD9D5500560B77 /* STPageViewController.m */; };
 		1B346F882BFD9D5500560B77 /* STNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B346F7E2BFD9D5500560B77 /* STNavigationController.m */; };
@@ -167,6 +167,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B2099CD2C4651EB004FBC66 /* BRBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseView.h; sourceTree = "<group>"; };
+		1B2099CE2C4651EB004FBC66 /* BRBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseView.m; sourceTree = "<group>"; };
+		1B2099D02C4651EB004FBC66 /* BRDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDatePickerView.h; sourceTree = "<group>"; };
+		1B2099D12C4651EB004FBC66 /* BRDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRDatePickerView.m; sourceTree = "<group>"; };
+		1B2099D22C4651EB004FBC66 /* NSDate+BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRPickerView.h"; sourceTree = "<group>"; };
+		1B2099D32C4651EB004FBC66 /* NSDate+BRPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRPickerView.m"; sourceTree = "<group>"; };
+		1B2099D52C4651EB004FBC66 /* BRStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRStringPickerView.h; sourceTree = "<group>"; };
+		1B2099D62C4651EB004FBC66 /* BRStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRStringPickerView.m; sourceTree = "<group>"; };
+		1B2099D82C4651EB004FBC66 /* BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerView.h; sourceTree = "<group>"; };
+		1B2099D92C4651EB004FBC66 /* BRPickerViewMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerViewMacro.h; sourceTree = "<group>"; };
 		1B346EF52BFD8B6400560B77 /* ECSO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECSO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B346EF82BFD8B6400560B77 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1B346EF92BFD8B6400560B77 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -188,16 +198,11 @@
 		1B346F3A2BFD9C5300560B77 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		1B346F3B2BFD9C5300560B77 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		1B346F3C2BFD9C5300560B77 /* UINavigationController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Extension.h"; sourceTree = "<group>"; };
-		1B346F3D2BFD9C5300560B77 /* UITableView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Extension.h"; sourceTree = "<group>"; };
-		1B346F3E2BFD9C5400560B77 /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
 		1B346F3F2BFD9C5400560B77 /* UINavigationController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Extension.m"; sourceTree = "<group>"; };
-		1B346F402BFD9C5400560B77 /* UITapGestureRecognizer+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITapGestureRecognizer+Extension.h"; sourceTree = "<group>"; };
 		1B346F412BFD9C5400560B77 /* UIView+Corner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Corner.m"; sourceTree = "<group>"; };
 		1B346F422BFD9C5400560B77 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
-		1B346F432BFD9C5400560B77 /* UITableView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Extension.m"; sourceTree = "<group>"; };
 		1B346F442BFD9C5400560B77 /* NSAttributedString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Extension.m"; sourceTree = "<group>"; };
 		1B346F462BFD9C5400560B77 /* UIImageView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Extension.m"; sourceTree = "<group>"; };
-		1B346F472BFD9C5400560B77 /* UIView+ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ViewController.h"; sourceTree = "<group>"; };
 		1B346F482BFD9C5400560B77 /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
 		1B346F492BFD9C5400560B77 /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		1B346F4A2BFD9C5400560B77 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
@@ -207,7 +212,6 @@
 		1B346F4E2BFD9C5400560B77 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		1B346F502BFD9C5400560B77 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		1B346F512BFD9C5400560B77 /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
-		1B346F522BFD9C5400560B77 /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		1B346F532BFD9C5400560B77 /* NSData+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Extension.h"; sourceTree = "<group>"; };
 		1B346F542BFD9C5400560B77 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		1B346F552BFD9C5400560B77 /* NSData+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Extension.m"; sourceTree = "<group>"; };
@@ -218,8 +222,6 @@
 		1B346F5A2BFD9C5400560B77 /* UIWindow+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Helper.h"; sourceTree = "<group>"; };
 		1B346F5B2BFD9C5400560B77 /* NSDictionary+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extension.h"; sourceTree = "<group>"; };
 		1B346F5C2BFD9C5400560B77 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
-		1B346F5D2BFD9C5400560B77 /* UIView+ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ViewController.m"; sourceTree = "<group>"; };
-		1B346F5E2BFD9C5400560B77 /* UITapGestureRecognizer+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITapGestureRecognizer+Extension.m"; sourceTree = "<group>"; };
 		1B346F5F2BFD9C5400560B77 /* NSAttributedString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Extension.h"; sourceTree = "<group>"; };
 		1B346F602BFD9C5400560B77 /* UIWindow+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Helper.m"; sourceTree = "<group>"; };
 		1B346F612BFD9C5400560B77 /* NSArray+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extension.h"; sourceTree = "<group>"; };
@@ -443,6 +445,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B2099CF2C4651EB004FBC66 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1B2099CD2C4651EB004FBC66 /* BRBaseView.h */,
+				1B2099CE2C4651EB004FBC66 /* BRBaseView.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		1B2099D42C4651EB004FBC66 /* DatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1B2099D02C4651EB004FBC66 /* BRDatePickerView.h */,
+				1B2099D12C4651EB004FBC66 /* BRDatePickerView.m */,
+				1B2099D22C4651EB004FBC66 /* NSDate+BRPickerView.h */,
+				1B2099D32C4651EB004FBC66 /* NSDate+BRPickerView.m */,
+			);
+			path = DatePickerView;
+			sourceTree = "<group>";
+		};
+		1B2099D72C4651EB004FBC66 /* StringPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1B2099D52C4651EB004FBC66 /* BRStringPickerView.h */,
+				1B2099D62C4651EB004FBC66 /* BRStringPickerView.m */,
+			);
+			path = StringPickerView;
+			sourceTree = "<group>";
+		};
+		1B2099DA2C4651EB004FBC66 /* BRPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1B2099CF2C4651EB004FBC66 /* Base */,
+				1B2099D42C4651EB004FBC66 /* DatePickerView */,
+				1B2099D72C4651EB004FBC66 /* StringPickerView */,
+				1B2099D82C4651EB004FBC66 /* BRPickerView.h */,
+				1B2099D92C4651EB004FBC66 /* BRPickerViewMacro.h */,
+			);
+			path = BRPickerView;
+			sourceTree = "<group>";
+		};
 		1B346EEC2BFD8B6400560B77 = {
 			isa = PBXGroup;
 			children = (
@@ -585,24 +628,16 @@
 				1B346F3A2BFD9C5300560B77 /* UIAlertView+Blocks.m */,
 				1B346F372BFD9C5300560B77 /* UIButton+EdgeInsets.h */,
 				1B346F592BFD9C5400560B77 /* UIButton+EdgeInsets.m */,
-				1B346F3E2BFD9C5400560B77 /* UIColor+Extension.h */,
-				1B346F522BFD9C5400560B77 /* UIColor+Extension.m */,
 				1B346F562BFD9C5400560B77 /* UIImage+Extension.h */,
 				1B346F502BFD9C5400560B77 /* UIImage+Extension.m */,
 				1B346F572BFD9C5400560B77 /* UIImageView+Extension.h */,
 				1B346F462BFD9C5400560B77 /* UIImageView+Extension.m */,
 				1B346F3C2BFD9C5300560B77 /* UINavigationController+Extension.h */,
 				1B346F3F2BFD9C5400560B77 /* UINavigationController+Extension.m */,
-				1B346F3D2BFD9C5300560B77 /* UITableView+Extension.h */,
-				1B346F432BFD9C5400560B77 /* UITableView+Extension.m */,
-				1B346F402BFD9C5400560B77 /* UITapGestureRecognizer+Extension.h */,
-				1B346F5E2BFD9C5400560B77 /* UITapGestureRecognizer+Extension.m */,
 				1B346F582BFD9C5400560B77 /* UIView+Corner.h */,
 				1B346F412BFD9C5400560B77 /* UIView+Corner.m */,
 				1B346F4B2BFD9C5400560B77 /* UIView+Extension.h */,
 				1B346F422BFD9C5400560B77 /* UIView+Extension.m */,
-				1B346F472BFD9C5400560B77 /* UIView+ViewController.h */,
-				1B346F5D2BFD9C5400560B77 /* UIView+ViewController.m */,
 				1B346F4C2BFD9C5400560B77 /* UIViewController+Extension.h */,
 				1B346F542BFD9C5400560B77 /* UIViewController+Extension.m */,
 				1B346F5A2BFD9C5400560B77 /* UIWindow+Helper.h */,
@@ -650,6 +685,7 @@
 		1B346F342BFD98F200560B77 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1B2099DA2C4651EB004FBC66 /* BRPickerView */,
 				1B871E9D2C09777B00159A88 /* TextView */,
 				1B6685B02C085BF9008754A1 /* Popover */,
 				1B66857E2C0736D2008754A1 /* Scan */,
@@ -1270,6 +1306,7 @@
 				1B346FFA2BFDC2F700560B77 /* KYPopupUtil.swift in Sources */,
 				1B871E962C09671F00159A88 /* STShareItemCell.m in Sources */,
 				1B346FA92BFD9D8800560B77 /* STEmptyView.m in Sources */,
+				1B2099DD2C4651EB004FBC66 /* NSDate+BRPickerView.m in Sources */,
 				1B346F732BFD9C5400560B77 /* NSData+Extension.m in Sources */,
 				1B346FCF2BFD9F6600560B77 /* STAppEnvs.m in Sources */,
 				1B346FF42BFDC2F700560B77 /* KYPopupDefaultButton.swift in Sources */,
@@ -1279,7 +1316,6 @@
 				1B346FA82BFD9D8800560B77 /* STBaseTableViewCell.m in Sources */,
 				1B34700A2BFDC44800560B77 /* NoticeHelp.m in Sources */,
 				1B66857A2C071F68008754A1 /* STUserInfoController.m in Sources */,
-				1B346F712BFD9C5400560B77 /* UIColor+Extension.m in Sources */,
 				1B346FA52BFD9D8800560B77 /* STFont.m in Sources */,
 				1BE413D12C104DC80002C402 /* STAdvertController.m in Sources */,
 				1B346FA12BFD9D8800560B77 /* STView.m in Sources */,
@@ -1298,6 +1334,7 @@
 				1B346F8A2BFD9D5500560B77 /* STBaseViewController.m in Sources */,
 				1B3470172BFDE64500560B77 /* STInformationController.m in Sources */,
 				1B6685972C08585B008754A1 /* STPopoverView.m in Sources */,
+				1B2099DE2C4651EB004FBC66 /* BRStringPickerView.m in Sources */,
 				1B346F6C2BFD9C5400560B77 /* NSDictionary+Extension.m in Sources */,
 				1B871EB62C10086900159A88 /* STAPPInfo.m in Sources */,
 				1B871EA52C09C6A100159A88 /* STCall.m in Sources */,
@@ -1312,7 +1349,6 @@
 				1B346F722BFD9C5400560B77 /* UIViewController+Extension.m in Sources */,
 				1B346F6B2BFD9C5400560B77 /* UIAlertController+Blocks.m in Sources */,
 				1B346FEE2BFDC2F700560B77 /* KYPopupTwoLineButton.swift in Sources */,
-				1B346F682BFD9C5400560B77 /* UITableView+Extension.m in Sources */,
 				1B66856E2C047DA5008754A1 /* STHTTPRequest.m in Sources */,
 				1BDFEDCA2C2176A400952DAC /* STVersion.m in Sources */,
 				1B346F772BFD9C5400560B77 /* UIWindow+Helper.m in Sources */,
@@ -1348,6 +1384,7 @@
 				1B346F6D2BFD9C5400560B77 /* NSDate+Extension.m in Sources */,
 				1B3470032BFDC2F700560B77 /* KYBaseContentView.swift in Sources */,
 				1B871EAA2C0DCC3300159A88 /* STWallet.m in Sources */,
+				1B2099DC2C4651EB004FBC66 /* BRDatePickerView.m in Sources */,
 				1BDFEDC72C21743D00952DAC /* STBlockChain.m in Sources */,
 				1B346FD02BFD9F6600560B77 /* STUserDefault.m in Sources */,
 				1B346F0B2BFD8B6600560B77 /* main.m in Sources */,
@@ -1367,7 +1404,6 @@
 				1B346FF82BFDC2F700560B77 /* KYPopupButton.swift in Sources */,
 				1B346FEF2BFDC2F700560B77 /* KYPopupTransitionAnimators.swift in Sources */,
 				1B346FBB2BFD9E4900560B77 /* WMScrollView.m in Sources */,
-				1B346F762BFD9C5400560B77 /* UITapGestureRecognizer+Extension.m in Sources */,
 				1B6685882C0736D2008754A1 /* LBXScanView.swift in Sources */,
 				1B346FBC2BFD9E4900560B77 /* WMMenuView.m in Sources */,
 				1B34700D2BFDCBF300560B77 /* SXMessageHUDView.swift in Sources */,
@@ -1375,7 +1411,6 @@
 				1B6685772C0714AD008754A1 /* STUser.m in Sources */,
 				1B6685B22C085BFE008754A1 /* Popover.swift in Sources */,
 				1B66855C2C003D04008754A1 /* STModifyNickController.m in Sources */,
-				1B346F752BFD9C5400560B77 /* UIView+ViewController.m in Sources */,
 				1BDFEDC42C21630B00952DAC /* STAboutCell.m in Sources */,
 				1B346F6A2BFD9C5400560B77 /* UIImageView+Extension.m in Sources */,
 				1B66858A2C0736D2008754A1 /* LBXScanLineAnimation.swift in Sources */,
@@ -1384,6 +1419,7 @@
 				1B66858B2C0736D2008754A1 /* STScanViewController.swift in Sources */,
 				1B66859A2C08588B008754A1 /* STCommonViewCell.m in Sources */,
 				1B66859D2C08590D008754A1 /* STMenuInfo.m in Sources */,
+				1B2099DB2C4651EB004FBC66 /* BRBaseView.m in Sources */,
 				1B871E902C0965D100159A88 /* STShare.m in Sources */,
 				1B6685742C07137E008754A1 /* STCacheManager.m in Sources */,
 				1B346FC62BFD9ECA00560B77 /* KINWebBrowserViewController.m in Sources */,
@@ -1575,13 +1611,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 8VDRG55U5M;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8VDRG55U5M;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ECSO/Misc/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ECSO/Misc/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Collector;
+				INFOPLIST_KEY_CFBundleDisplayName = Collweb;
 				INFOPLIST_KEY_NSCameraUsageDescription = "soda - Uploading an avatar or scanning requires your consent to access the camera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "soda - Taking and uploading an avatar requires your consent to access the microphone";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "soda - Uploading an avatar or scanning requires your consent to access the album";
@@ -1595,9 +1633,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = www.soda.top;
+				PRODUCT_BUNDLE_IDENTIFIER = www.collweb.top;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = collweb_store;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1615,13 +1654,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 8VDRG55U5M;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8VDRG55U5M;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ECSO/Misc/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ECSO/Misc/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Collector;
+				INFOPLIST_KEY_CFBundleDisplayName = Collweb;
 				INFOPLIST_KEY_NSCameraUsageDescription = "soda - Uploading an avatar or scanning requires your consent to access the camera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "soda - Taking and uploading an avatar requires your consent to access the microphone";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "soda - Uploading an avatar or scanning requires your consent to access the album";
@@ -1635,9 +1676,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = www.soda.top;
+				PRODUCT_BUNDLE_IDENTIFIER = www.collweb.top;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = collweb_store;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;

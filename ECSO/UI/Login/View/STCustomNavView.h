@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^STNavItemBlock)(NSInteger index);
 
 @interface STCustomNavView : STView
+@property (nonatomic, strong)UIButton *backBtn;
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UIButton *saveBtn;
 

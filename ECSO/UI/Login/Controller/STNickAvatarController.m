@@ -12,6 +12,7 @@
 #import "STFindController.h"
 #import "STNavigationController.h"
 #import "STHTTPRequest.h"
+#import "STMainTabbarController.h"
 @interface STNickAvatarController ()
 @property (nonatomic, strong)UIButton *avatarBtn;
 @property (nonatomic, strong)UITextField *textField;
@@ -210,8 +211,9 @@
     [STUserDefault setObjectValue:self.textField.text forKey:@"displayName"];
     dispatch_async(dispatch_get_main_queue(), ^{
         // 主线程更新
-        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
-        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+//        STNavigationController *nav = [[STNavigationController alloc] initWithRootViewController:[[STFindController alloc] init]];
+//        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+        [UIApplication sharedApplication].keyWindow.rootViewController = [STMainTabbarController shareInstance];
     });
 }
 
