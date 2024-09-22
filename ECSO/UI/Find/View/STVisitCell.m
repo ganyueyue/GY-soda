@@ -51,7 +51,7 @@
     [backgroundView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.iconView.mas_trailing).offset(10);
-        make.trailing.equalTo(backgroundView).offset(-30);
+        make.trailing.equalTo(backgroundView).offset(-40);
         make.bottom.equalTo(backgroundView.mas_centerY).offset(-1);
     }];
     
@@ -61,10 +61,28 @@
     [backgroundView addSubview:self.descLabel];
     [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.iconView.mas_trailing).offset(10);
-        make.trailing.equalTo(backgroundView).offset(-30);
+        make.trailing.equalTo(backgroundView).offset(-40);
         make.top.equalTo(backgroundView.mas_centerY).offset(1);
     }];
     
+    [backgroundView addSubview:self.topBtn];
+    [self.topBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(backgroundView).offset(-10);
+        make.centerY.equalTo(backgroundView);
+        make.width.height.mas_offset(25);
+    }];
+    
+}
+
+- (UIButton *)topBtn {
+    if (_topBtn == nil) {
+        _topBtn = [[UIButton alloc] init];
+        [_topBtn setImage:[UIImage imageNamed:@"icon_top"] forState:(UIControlStateNormal)];
+//        [_topBtn setTitleColor:SXColor6 forState:UIControlStateNormal];
+        _topBtn.hidden = true;
+        [_topBtn addTarget:self action:@selector(topBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _topBtn;
 }
 
 - (void)setWebInfo:(STWebInfo *)webInfo {
@@ -73,6 +91,12 @@
     
     self.titleLabel.text = _webInfo.title;
     self.descLabel.text = _webInfo.url;
+}
+
+- (void)topBtnAction {
+    if (self.block) {
+        self.block();
+    }
 }
 
 @end

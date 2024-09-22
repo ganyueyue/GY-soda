@@ -344,6 +344,10 @@
     // 3.生成二维码
     CIImage *image = [filter outputImage];
     
+    if (image == nil) {
+        return nil;
+    }
+    
     // 4.高清处理: size 要大于等于视图显示的尺寸
     UIImage *img = [UIImage createNonInterpolatedUIImageFromCIImage:image size:[UIScreen mainScreen].bounds.size.width];
     

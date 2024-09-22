@@ -19,6 +19,7 @@
 @property (nonatomic, strong)NSURLSessionDataTask *registerOp;
 @property (nonatomic, strong)NSURLSessionDataTask *complaintOp;
 @property (nonatomic, strong)NSURLSessionDataTask *sodaConfOp;
+@property (nonatomic, strong)NSURLSessionDataTask *versionConfOp;
 @end
 
 @implementation STHTTPRequest
@@ -76,6 +77,36 @@
     return manager;
 }
 
+- (NSURLSessionDataTask *)getVersionConfSuccess:(SXObjectSuccess)success fail:(SXNetworkFail)fail {
+
+    if (_versionConfOp!=nil){
+        return _versionConfOp;
+    }
+    
+    SXBaseSessionManager *manager = [self AFHttpJsonSodaRequestManager];
+    
+    _versionConfOp = [manager GET:@"/ver_conf.json" parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        self.versionConfOp = nil;
+
+        NSDictionary *responseDictionary = (NSDictionary *)responseObject;
+        STStatus *status = [STStatus parseDictionary:responseDictionary];
+        if (!status.status) {
+            fail(status.code,status.msg);
+            return;
+        }
+        STVersion * info = [STVersion mj_objectWithKeyValues:responseDictionary[@"ios"]];
+        success(info);
+        
+    } fail:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        self.versionConfOp = nil;
+        fail(NetFail,[error localizedDescription]);
+    }];
+    
+    return _versionConfOp;
+}
+
 - (NSURLSessionDataTask *)getSodaConfSuccess:(SXObjectSuccess)success fail:(SXNetworkFail)fail {
 
     if (_sodaConfOp!=nil){
@@ -84,7 +115,32 @@
     
     SXBaseSessionManager *manager = [self AFHttpJsonSodaRequestManager];
     
-    _sodaConfOp = [manager GET:@"/collector_conf.json" parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSInteger lang = [STUserDefault integerValueForKey:@"STLanguage"];
+    NSString *url = @"collector_en_conf.json";
+    if (lang == 0) {
+        NSString *language = [NSLocale preferredLanguages][0];
+        if ([language.lowercaseString hasPrefix:@"zh"]) {
+            url = @"collector_cn_conf.json";
+        } else if ([language.lowercaseString hasPrefix:@"ja"]) {
+            url = @"collector_jp_conf.json";
+        } else if ([language.lowercaseString hasPrefix:@"ko"]) {
+            url = @"collector_kr_conf.json";
+        } else {
+            url = @"collector_en_conf.json";
+        }
+    } else if (lang == 1) {
+        url = @"collector_cn_conf.json";
+    } else if (lang == 3) {
+        url = @"collector_jp_conf.json";
+    } else if (lang == 4) {
+        url = @"collector_kr_conf.json";
+    } else {
+        url = @"collector_en_conf.json";
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"/%@?t=%lf",url,[[NSDate date]timeIntervalSince1970]];
+    
+    _sodaConfOp = [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.sodaConfOp = nil;

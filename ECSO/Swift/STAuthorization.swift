@@ -30,7 +30,7 @@ class STAuthorization: KYBaseContentView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = UIColor(hex: 0x292F48)
         titleLabel.font = UIFont.systemFont(ofSize: 15)
-        titleLabel.text = "小小木屋";
+        titleLabel.text = "";
         return titleLabel;
     }()
     

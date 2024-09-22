@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLSessionDataTask *)complaint:(NSString *)url type:(NSInteger)type description:(NSString *)description success:(SXObjectSuccess)success fail:(SXNetworkFail)fail;
 
 - (NSURLSessionDataTask *)getSodaConfSuccess:(SXObjectSuccess)success fail:(SXNetworkFail)fail;
+
+- (NSURLSessionDataTask *)getVersionConfSuccess:(SXObjectSuccess)success fail:(SXNetworkFail)fail;
 @end
 
 NS_ASSUME_NONNULL_END

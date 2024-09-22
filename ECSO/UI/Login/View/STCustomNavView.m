@@ -39,13 +39,14 @@
     [self.saveBtn setTitle:@"保存".string forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:HexRGB(0x606060) forState:UIControlStateNormal];
     self.saveBtn.titleLabel.font = [STFont fontSize:16];
+    self.saveBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.saveBtn.tag = 101;
     [self.saveBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.saveBtn];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self).offset(-15);
         make.centerY.equalTo(backBtn);
-        make.size.mas_offset(CGSizeMake(40, 30));
+        make.size.mas_offset(CGSizeMake(70, 30));
     }];
 }
 

@@ -15,6 +15,10 @@
 //md5 encode
 +(NSString *) md5:(NSString *)str
 {
+    if (str.length <= 0) {
+        return @"";
+    }
+    
     const char *cStr = [str UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cStr, (unsigned int)strlen(cStr), digest );
@@ -46,15 +50,20 @@
 }
 
 + (BOOL)checkUrlWithString:(NSString *)url {
-    if(url.length < 1)
+    if(url.length < 1 || ([url containsString:@"】"] &&  [url containsString:@"「"]))
         return NO;
-    if (url.length > 4 && [[url substringToIndex:4] isEqualToString:@"www."]) {
+    if (url.length > 4 && ([[url substringToIndex:4] isEqualToString:@"www."])) {
         url = [NSString stringWithFormat:@"http://%@",url];
     }
+    
+    if ((![url hasPrefix:@"http"]) && ([url containsString:@"."])) {
+        url = [NSString stringWithFormat:@"http://%@",url];
+    }
+    
     NSString *regex =@"[a-zA-z]+://[^\\s]*";
         NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    
-    return [urlTest evaluateWithObject:url];
+    BOOL result = [urlTest evaluateWithObject:url];
+    return result;
 }
 
 //是否是网址
@@ -62,7 +71,18 @@
 //    NSString *regex =@"((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?";
     NSString *regex = @"^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$";
     NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [urlTest evaluateWithObject:url];
+    BOOL result = [urlTest evaluateWithObject:url];
+    return result;
+}
+
+//获取域名
++ (NSString *)getHostUrl:(NSString *)urlString {
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSString *domain = [url host];
+    if (domain.length <= 0) {
+        domain = urlString;
+    }
+    return domain;
 }
 
 //是否是纯数字
@@ -283,9 +303,24 @@
 
 - (NSString *)string {
     NSString *laguageType = @"zh-Hans";
-    NSString *preferredLanguage = [NSLocale preferredLanguages][0];
-    if ([preferredLanguage hasPrefix:@"zh-Hans"]) {
+    NSInteger lang = [STUserDefault integerValueForKey:@"STLanguage"];
+    if (lang == 0) {
+        NSString *language = [NSLocale preferredLanguages][0];
+        if ([language.lowercaseString hasPrefix:@"zh"]) {
+            laguageType = @"zh-Hans";
+        } else if ([language.lowercaseString hasPrefix:@"ja"]) {
+            laguageType = @"ja";
+        } else if ([language.lowercaseString hasPrefix:@"ko"]) {
+            laguageType = @"ko";
+        } else {
+            laguageType = @"en";
+        }
+    } else if (lang == 1) {
         laguageType = @"zh-Hans";
+    } else if (lang == 3) {
+        laguageType = @"ja";
+    } else if (lang == 4) {
+        laguageType = @"ko";
     } else {
         laguageType = @"en";
     }

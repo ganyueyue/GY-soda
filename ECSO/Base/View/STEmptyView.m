@@ -17,7 +17,7 @@
     [self addSubview:_iconView];
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.centerY.equalTo(self).offset(-40);
+        make.bottom.equalTo(self.mas_centerY).offset(30);
     }];
     
     _titleLabel = [[UILabel alloc]init];
@@ -25,12 +25,12 @@
     _titleLabel.textColor = HexRGB(0x888888);
     _titleLabel.numberOfLines = 0;
     _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.text = @"暂无数据";
+    _titleLabel.text = @"暂无数据".string;
     [self addSubview:_titleLabel];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.leading.equalTo(self).offset(30).priorityHigh();
-        make.top.equalTo(self.iconView.mas_bottom).offset(15);
+        make.top.equalTo(self.iconView.mas_bottom).offset(5);
     }];
 }
 

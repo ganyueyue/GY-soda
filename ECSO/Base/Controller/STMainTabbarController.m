@@ -89,7 +89,7 @@ static STMainTabbarController* _instance = nil;
         
     [imgNameNor addObject:@"icon_home_nor"];
     [imgNameSel addObject:@"icon_home_sel"];
-    [titleName addObject:@"首页"];
+    [titleName addObject:@"首页".string];
 
 //    [imgNameNor addObject:@"icon_tabbar_discover_nor"];
 //    [imgNameSel addObject:@"icon_tabbar_discover_sel"];
@@ -97,7 +97,7 @@ static STMainTabbarController* _instance = nil;
 
     [imgNameNor addObject:@"icon_me_nor"];
     [imgNameSel addObject:@"icon_me_sel"];
-    [titleName addObject:@"我的"];
+    [titleName addObject:@"我的".string];
     
     for (NSInteger i = 0; i < self.controllers.count; i++) {
         UIViewController *vc = self.controllers[i];

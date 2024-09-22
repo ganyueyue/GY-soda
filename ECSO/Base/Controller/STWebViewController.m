@@ -20,6 +20,7 @@
 #import "STCaptureView.h"
 #import "STPwdPopupView.h"
 #import "STCall.h"
+#import "STWebInfo.h"
 #import "STComplainController.h"
 #import "TZImagePickerController.h"
 @interface STWebViewController () <STErrorViewDelegate,STAuthorizationDelegate>
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) STErrorView *errorView;
 @property (nonatomic, strong) STLoadingView *loadingView;
 
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) STNavtionItem *navtionItem;
 @property (nonatomic, strong) STPopoverView *popoverView;
 @property (nonatomic, strong) Popover *popover;
@@ -40,6 +42,12 @@
 @property (nonatomic, strong) STAuthorization *authorizationView;
 
 @property (nonatomic, strong) STShare *share;
+
+
+@property (nonatomic, strong) NSString *webIcon;
+@property (nonatomic, strong) NSString *webTitle;
+
+@property (nonatomic, strong) NSString *openURLScheme;
 
 @end
 
@@ -163,21 +171,30 @@
     self.actionButtonHidden = true;
     self.view.backgroundColor = [UIColor whiteColor];
     self.wkWebView.backgroundColor = [UIColor whiteColor];
+    self.wkWebView.customUserAgent = @"webfaves";
     if(@available(iOS 11.0, *)) {
         self.wkWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    
-    [self.wkWebView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.leading.trailing.equalTo(self.view);
-        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].statusBarHeight);
-    }];
-    
     [self.view addSubview:self.navtionItem];
     [self.navtionItem mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.view).offset(-10);
         make.size.mas_offset(CGSizeMake(85, 30));
         make.top.equalTo(self.view).offset([STAppEnvs shareInstance].statusBarHeight + 6);
     }];
+    
+    [self.view addSubview:self.titleLabel];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.navtionItem);
+        make.centerX.equalTo(self.view);
+        make.trailing.equalTo(self.navtionItem.mas_leading);
+    }];
+    
+    
+    [self.wkWebView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.leading.trailing.equalTo(self.view);
+        make.top.equalTo(self.navtionItem.mas_bottom).offset(12);
+    }];
+    
     
     __weak typeof(self) weakSelf = self;
     self.navtionItem.clickBlock = ^(NSInteger index) {
@@ -187,6 +204,9 @@
             [weakSelf showPopoverView];
         }
     };
+    
+    self.webTitle = @"";
+    self.webIcon = @"";
         
 }
 
@@ -220,6 +240,16 @@
         _navtionItem.clipsToBounds = true;
     }
     return _navtionItem;
+}
+
+- (UILabel *)titleLabel {
+    if (_titleLabel == nil) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [STFont fontSize:17];
+        _titleLabel.textColor = SXColor3;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _titleLabel;
 }
 
 - (Popover *)popover {
@@ -338,27 +368,52 @@
 
 - (void)showNavigtaionItem {
     NSMutableArray *menuList = [NSMutableArray array];
-    NSArray *icons = @[@"icon_menu_refresh",@"icon_menu_share"];//,@"icon_menu_service"
-    NSArray *names = @[@"刷    新".string,@"分    享".string];//,@"投    诉".string
+    NSArray *icons = @[@"icon_menu_fav_nor",@"icon_menu_refresh",@"icon_menu_share"];//,@"icon_menu_service"
+    NSArray *names = @[@"收    藏".string,@"刷    新".string,@"分    享".string];//,@"投    诉".string
     for (NSInteger index = 0; index < icons.count; index++) {
         STMenuInfo *info = [[STMenuInfo alloc]init];
         info.icon = icons[index];
         info.menuName = names[index];
         info.index = index;
+        if (index == 0) {
+            for (STWebInfo *model in [[STCacheManager shareInstance] getFaves]) {
+                if ([model.url containsString:self.urlString]) {
+                    info.icon = icons[index];
+                    info.isSelected = true;
+                    info.menuName = @"已收藏".string;
+                    break;
+                }
+            }
+        }
         [menuList addObject:info];
     }
     self.popoverView.bounds = CGRectMake(0, 0, 120, (menuList.count > 8 ? 400 : menuList.count * 50));
     self.popoverView.dataArray = menuList;
     __weak typeof(self) weakSelf = self;
     self.popoverView.clickBlock = ^(STMenuInfo * _Nonnull info) {
-        if (info.index == 0) {
+        if (info.index == 1) {
             [weakSelf loadCurrentURL];
-        } else if (info.index == 1) {
+        } else if (info.index == 2) {
             [weakSelf showShareView];
         } else {
-            STComplainController *vc = [[STComplainController alloc]init];
-            vc.urlString = weakSelf.urlString;
-            [weakSelf pushViewController:vc];
+//            STComplainController *vc = [[STComplainController alloc]init];
+//            vc.urlString = weakSelf.urlString;
+//            [weakSelf pushViewController:vc];
+            
+            info.isSelected = !info.isSelected;
+            [weakSelf.popoverView.tableView reloadData];
+            if (info.isSelected) {
+                [[STCacheManager shareInstance] saveFavesCache:weakSelf.webTitle withUrl:weakSelf.urlString withIcon:weakSelf.webIcon];
+            } else {
+                NSMutableArray *array = [STCacheManager shareInstance].getFaves.mutableCopy;
+                for (STWebInfo *model in array) {
+                    if ([model.url containsString:weakSelf.urlString]) {
+                        [array removeObject:model];
+                        break;
+                    }
+                }
+                [[STCacheManager shareInstance]saveCacheFaves:array];
+            }
             
         }
         [weakSelf.popover dismiss];
@@ -393,7 +448,7 @@
             [view show];
             view.clickBlock = ^(NSInteger index) {
                 if (index == 1) {
-                    NSString *text = [NSString stringWithFormat:@"【ConfluxOS】%@「「%@」」复制打开Conflux OS",weakSelf.share.info.url,weakSelf.share.info.desc];
+                    NSString *text = [NSString stringWithFormat:@"【%@】%@「「%@」」复制打开Webfaves",weakSelf.share.info.desc,weakSelf.share.info.url,weakSelf.share.info.title];
                     [weakSelf callThirdShare:info.scheme withShareTitle:text];
                 } else {
                     [weakSelf toSaveImage:weakSelf.share.info.image withShare:info.scheme];
@@ -405,7 +460,7 @@
             [shotView show];
             shotView.clickBlock = ^(NSInteger index, UIImage *image) {
                 if (index == 1) {
-                    NSString *text = [NSString stringWithFormat:@"【ConfluxOS】%@「「%@」」复制打开Conflux OS",weakSelf.share.info.url,weakSelf.share.info.desc];
+                    NSString *text = [NSString stringWithFormat:@"【%@】%@「「%@」」复制打开Webfaves",weakSelf.share.info.desc,weakSelf.share.info.url,weakSelf.share.info.title];
                     [weakSelf callThirdShare:info.scheme withShareTitle:text];
                 } else {
                     [weakSelf saveImage:image withShare:info.scheme];
@@ -417,7 +472,7 @@
             [view show];
             view.clickBlock = ^(NSInteger index) {
                 if (index == 1) {
-                    NSString *text = [NSString stringWithFormat:@"【ConfluxOS】%@「「%@」」复制打开Conflux OS",weakSelf.share.info.url,weakSelf.share.info.desc];
+                    NSString *text = [NSString stringWithFormat:@"【%@】%@「「%@」」复制打开Webfaves",weakSelf.share.info.desc,weakSelf.share.info.url,weakSelf.share.info.title];
                     [weakSelf callThirdShare:info.scheme withShareTitle:text];
                 } else {
                     [weakSelf toSaveImage:weakSelf.share.info.image withShare:info.scheme];
@@ -433,8 +488,13 @@
             [shotView show];
             shotView.clickBlock = ^(NSInteger index, UIImage *image) {
                 if (index == 1) {
-                    NSString *text = [NSString stringWithFormat:@"【ConfluxOS】%@「「%@」」复制打开Conflux OS",weakSelf.urlString,weakSelf.wkWebView.title];
-                    [weakSelf callThirdShare:info.scheme withShareTitle:text];
+                    if (weakSelf.share.info == nil) {
+                        NSString *text = [NSString stringWithFormat:@"【Webfaves】%@「「%@」」复制打开Webfaves",weakSelf.urlString,weakSelf.wkWebView.title];
+                        [weakSelf callThirdShare:info.scheme withShareTitle:text];
+                    } else {
+                        NSString *text = [NSString stringWithFormat:@"【%@】%@「「%@」」复制打开Webfaves",weakSelf.share.info.desc,weakSelf.share.info.url,weakSelf.share.info.title];
+                        [weakSelf callThirdShare:info.scheme withShareTitle:text];
+                    }
                 } else {
                     [weakSelf saveImage:image withShare:info.scheme];
                 }
@@ -478,6 +538,7 @@
 
 - (void)saveImage:(UIImage *)image withShare:(NSString *)shareUrl {
     if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:shareUrl]]) {
+        self.openURLScheme = shareUrl;
         // 保存图片到相册中
         UIImageWriteToSavedPhotosAlbum(image,self, @selector(image:didFinishSavingWithError:contextInfo:),nil);
     } else {
@@ -497,7 +558,11 @@
         // Show message image successfully saved
         [SVProgressHelper dismissWithMsg:@"图片保存成功".string];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"weixin://"] options:@{} completionHandler:nil];
+            if (self.openURLScheme.length <= 0) {
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"weixin://"] options:@{} completionHandler:nil];
+            } else {
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.openURLScheme] options:@{} completionHandler:nil];
+            }
         });
     }
 }
@@ -515,30 +580,38 @@
     [self webViewDoNotZoom];
     [self hiddenLoadingView];
     NSLog(@"hidden--%@",URL.absoluteString);
-    [self.wkWebView evaluateJavaScript:@"[document.querySelector('img').src,document.title]" completionHandler:^(NSArray *_Nullable resp, NSError * _Nullable error) {
-        NSLog(@"%@",resp);
-        if (resp.count == 2) {
-            [[STCacheManager shareInstance]saveCache:resp.lastObject withUrl:URL.absoluteString withIcon:resp.firstObject];
-        } else if (resp.count == 1) {
-            NSString *string = resp.firstObject;
-            if ([NSString isCheckUrl:string]) {//图片
-                [[STCacheManager shareInstance]saveCache:@"" withUrl:URL.absoluteString withIcon:string];
-            } else {//标题
-                [[STCacheManager shareInstance]saveCache:string withUrl:URL.absoluteString withIcon:@"https://openweb3.oss-cn-shanghai.aliyuncs.com/1717120200358common_placeholder.png"];
-            }
-        } else {
-            [[STCacheManager shareInstance]saveCache:@"" withUrl:URL.absoluteString withIcon:@"https://openweb3.oss-cn-shanghai.aliyuncs.com/1717120200358common_placeholder.png"];
+    __weak typeof(self) weakSelf = self;
+    self.titleLabel.text = self.wkWebView.title;
+    NSString *host = [NSString getHostUrl:URL.absoluteString];
+    if ([URL.absoluteString hasPrefix:@"https://"]) {
+        if (weakSelf.webTitle.length <= 0) {
+            weakSelf.webTitle = weakSelf.wkWebView.title;
         }
-    }];
+        if (weakSelf.webIcon.length <= 0) {
+            NSString *t = [NSString stringWithFormat:@"https://%@/favicon.ico",host];
+            weakSelf.webIcon = t;
+        }
+        [[STCacheManager shareInstance]saveCache:weakSelf.webTitle withUrl:URL.absoluteString withIcon:weakSelf.webIcon];
+    } else {
+        if (weakSelf.webTitle.length <= 0) {
+            weakSelf.webTitle = weakSelf.wkWebView.title;
+        }
+        if (weakSelf.webIcon.length <= 0) {
+            NSString *t = [NSString stringWithFormat:@"http://%@/favicon.ico",host];
+            weakSelf.webIcon = t;
+        }
+        [[STCacheManager shareInstance]saveCache:weakSelf.webTitle withUrl:URL.absoluteString withIcon:weakSelf.webIcon];
+        
+    }
 }
 
 - (void)webBrowser:(KINWebBrowserViewController *)webBrowser didFailToLoadURL:(NSURL *)URL error:(NSError *)error {
     [self hiddenLoadingView];
     if (error.code == NSURLErrorCancelled) {
         return;
-    } else if (error.code == 102) {
-        [self loadCurrentURL];
-        return;
+//    } else if (error.code == 102) {
+//        [self loadCurrentURL];
+//        return;
     }
     [self networkErrorNotice];
 }
@@ -671,10 +744,16 @@
         if (list.count <= 0) {
             [list addObjectsFromArray:[[STCacheManager shareInstance] getWallers]];
         }
+        
+        if (list.count <= 0) {
+            [list addObject:[STWallet new]];
+        }
         self.authorizationView = [[STAuthorization alloc] initWithName:info.name appcode:info.args[@"appcode"] attach:info.attach blockchain:blockchain wallers:list.copy];
         self.authorizationView.delegate = self;
         self.popupViewController = [NoticeHelp showCustomPopViewController:self.authorizationView withGestureDismissal:false complete:nil];
     } else if ([info.name isEqualToString:@"initApp"]) {
+        self.webTitle = info.args[@"name"];
+        self.webIcon = info.args[@"icon"];
         NSString *appCode = [NSString md5:[NSString stringWithFormat:@"%@%@",info.args[@"name"],info.args[@"developer"]]];
         NSString *urlString = [NSString stringWithFormat:@"onAppCallResult(\'{\"name\":\"%@\",\"attach\":\"%@\",\"error\":\"0\",\"result\":{\"appcode\":\"%@\"}}\')",info.name,info.attach,appCode];
         [self.wkWebView evaluateJavaScript:urlString completionHandler:^(id _Nullable resp, NSError * _Nullable error) {

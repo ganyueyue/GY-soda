@@ -65,50 +65,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     STCommonViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[STCommonViewCell className]];
     STMenuInfo *info = self.dataArray[indexPath.row];
-    if (info.index == 4) {
-        if (info.isSelected) {
-            cell.iconView.contentMode = UIViewContentModeCenter;
-            cell.iconView.image = [UIImage imageNamed:@"icon_menu_fav"];
-            cell.titleLabel.text = @"已收藏".string;
-            cell.titleLabel.textColor = HexRGB(0x292F48);
-        } else {
-            if ([info.icon containsString:@"http"]) {
-                [cell.iconView sx_setImagePlaceholdWithURL:info.icon];
-                cell.iconView.contentMode = UIViewContentModeScaleAspectFit;
-            } else if ([info.icon containsString:@"res@"]) {
-                NSString *iconString = [info.icon stringByReplacingOccurrencesOfString:@"res@" withString:@""];
-                cell.iconView.image = [UIImage imageNamed:iconString];
-                cell.iconView.contentMode = UIViewContentModeCenter;
-            } else {
-                cell.iconView.image = [UIImage imageNamed:info.icon];
-                cell.iconView.contentMode = UIViewContentModeCenter;
-            }
-            cell.titleLabel.textColor = HexRGBA(0x292F48, 0.4);
-            cell.titleLabel.text = info.menuName;
-        }
+    if (info.index == 0 && info.isSelected == false) {
+        cell.iconView.image = [UIImage imageNamed:@"icon_menu_fav_nor"];
+        cell.titleLabel.text = @"收    藏".string;
+    } else if (info.index == 0 && info.isSelected == true) {
+        cell.iconView.image = [UIImage imageNamed:@"icon_menu_fav"];
+        cell.titleLabel.text = @"已收藏".string;
     } else {
-        if ([info.icon containsString:@"http"]) {
-            [cell.iconView sx_setImagePlaceholdWithURL:info.icon];
-            cell.iconView.contentMode = UIViewContentModeScaleAspectFit;
-        } else if ([info.icon containsString:@"res@"]) {
-            NSString *iconString = [info.icon stringByReplacingOccurrencesOfString:@"res@" withString:@""];
-            cell.iconView.image = [UIImage imageNamed:iconString];
-            cell.iconView.contentMode = UIViewContentModeCenter;
-        } else {
-            cell.iconView.image = [UIImage imageNamed:info.icon];
-            cell.iconView.contentMode = UIViewContentModeCenter;
-        }
-        
-        if (info.index == 0 && info.isSelected) {
-            cell.iconView.image = [UIImage imageNamed:@"icon_menu_back_nor"];
-            cell.titleLabel.textColor = HexRGBA(0x292F48, 0.4);
-        } else if (info.index == 1 && info.isSelected) {
-            cell.iconView.image = [UIImage imageNamed:@"icon_menu_forward_nor"];
-            cell.titleLabel.textColor = HexRGBA(0x292F48, 0.4);
-        } else {
-            cell.titleLabel.textColor = HexRGB(0x292F48);
-        }
-        
+        cell.iconView.image = [UIImage imageNamed:info.icon];
         cell.titleLabel.text = info.menuName;
     }
     return cell;

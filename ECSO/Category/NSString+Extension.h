@@ -67,4 +67,7 @@
 
 + (NSString *)getBundleVersion;
 
+//获取域名
++ (NSString *)getHostUrl:(NSString *)urlString;
+
 @end

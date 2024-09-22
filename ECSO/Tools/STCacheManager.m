@@ -45,13 +45,22 @@ static FMDatabase *_db;
 }
 
 - (NSString *)getUUID {
+//    [SAMKeychain deletePasswordForService:@"web3" account:@"clientId"];
     //缓存UUID到本地
-    NSString *uuid = [SAMKeychain passwordForService:@"web3" account:@"clientId"];
+    NSString *uuid = [SAMKeychain passwordForService:@"web3" account:@"clientId1"];
     if (uuid.length <= 0) {
-        uuid = [[UIDevice currentDevice].identifierForVendor UUIDString];
-        [SAMKeychain setPassword:uuid forService:@"web3" account:@"clientId"];
+        uuid = [[[UIDevice currentDevice].identifierForVendor UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        if (uuid.length >= 32) {
+            uuid = [uuid substringToIndex:32];
+        } else {
+            NSInteger index = 32 - uuid.length;
+            NSInteger num = powf(10, index);
+            NSInteger hh = arc4random() % num;
+            uuid = [NSString stringWithFormat:@"%@%ld",uuid,hh];
+        }
+        [SAMKeychain setPassword:uuid forService:@"web3" account:@"clientId1"];
     }
-    return uuid;
+    return [NSString stringWithFormat:@"%@%@",uuid,[NSString md5:uuid]];
 }
 
 - (void)saveCache:(NSString *)title withUrl:(NSString *)url withIcon:(NSString *)icon {
@@ -97,6 +106,7 @@ static FMDatabase *_db;
     BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '001' AND url = '%@';",url]];
     if (success) {
         NSLog(@"删除成功");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHistoryChangeNotification object:nil userInfo:nil];
     }
 }
 
@@ -104,6 +114,7 @@ static FMDatabase *_db;
     BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '001';"]];
     if (success) {
         NSLog(@"删除成功");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHistoryChangeNotification object:nil userInfo:nil];
     }
 }
 //存钱包地址
@@ -147,6 +158,80 @@ static FMDatabase *_db;
     return info;
 }
 
+- (void)saveFavesCache:(NSString *)title withUrl:(NSString *)url withIcon:(NSString *)icon {
+    //判断数据库是否有
+    BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '003' AND url = '%@';",url]];
+    if (success) {
+        NSLog(@"删除成功");
+    }
+    
+    NSDictionary * newsDic = @{
+        @"title":title,
+        @"url":url,
+        @"icon":icon
+    };
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:newsDic requiringSecureCoding:YES error:nil];
+    if (data == nil) {
+        return;
+    }
+    if ([_db executeUpdate:@"insert into t_news (userID,dict,url) values(?,?,?)",@"003",data,url]) {
+        NSLog(@"插入成功");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFavesChangeNotification object:nil userInfo:nil];
+    }else{
+        NSLog(@"插入失败");
+    }
+}
+
+
+//保存删除后的收藏列表
+- (void)saveCacheFaves:(NSArray *)list {
+    BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '003';"]];
+    if (success) {
+        NSLog(@"删除成功");
+    }
+    if (list.count <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFavesChangeNotification object:nil userInfo:nil];
+        return;
+    }
+    for (STWebInfo *info in list) {
+        NSDictionary * newsDic = [info mj_keyValues];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:newsDic requiringSecureCoding:YES error:nil];
+        if (data == nil) {
+            return;
+        }
+        BOOL success = [_db executeUpdate:@"insert into t_news (userID,dict,url) values(?,?,?)",@"003",data,info.url];
+        if (success) {
+            NSLog(@"插入成功");
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFavesChangeNotification object:nil userInfo:nil];
+        }else{
+            NSLog(@"插入失败");
+        }
+    }
+}
+
+- (void)deleteFaves:(NSString *)url {
+    //判断数据库是否有
+    BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '003' AND url = '%@';",url]];
+    if (success) {
+        NSLog(@"删除成功");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFavesChangeNotification object:nil userInfo:nil];
+    }
+}
+
+- (NSArray *)getFaves {
+    FMResultSet *set = [_db executeQuery:@"select * from t_news where userID = '003' order by id desc;"];
+    NSMutableArray *array = [NSMutableArray array];
+    while ([set next]) {
+        NSData *data = [set dataForColumn:@"dict"];
+        NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if(dic){
+            STWebInfo *info = [STWebInfo mj_objectWithKeyValues:dic];
+            [array addObject:info];
+        }
+    }
+    return array;
+}
+
 - (void)saveRecommendCache:(NSArray *)recommend {
     BOOL success = [_db executeUpdate:[NSString stringWithFormat:@"DELETE FROM t_news WHERE userID = '002';"]];
     if (success) {
@@ -181,7 +266,7 @@ static FMDatabase *_db;
     NSString *path_document = NSHomeDirectory();
     NSString *imagePath = [path_document stringByAppendingString:@"/Documents/pic.png"];
     //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
-    [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
+    [UIImageJPEGRepresentation(image, 0.2) writeToFile:imagePath atomically:YES];
 }
 
 - (UIImage *)getSodaImage {

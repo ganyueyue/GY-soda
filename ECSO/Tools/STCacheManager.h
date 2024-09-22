@@ -23,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)saveCache:(NSString *)title withUrl:(NSString *)url withIcon:(NSString *)icon;
 
+- (NSArray *)getFaves;
+
+- (void)deleteFaves:(NSString *)url;
+
+//保存删除后的收藏列表
+- (void)saveCacheFaves:(NSArray *)list;
+
+- (void)saveFavesCache:(NSString *)title withUrl:(NSString *)url withIcon:(NSString *)icon;
+
 - (void)saveWallers:(NSArray *)list;
 
 - (NSArray *)getWallers;

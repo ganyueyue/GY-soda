@@ -78,7 +78,7 @@
     _textField = [[UITextField alloc]init];
     _textField.font = [STFont fontSize:16];
     _textField.textColor = HexRGB(0x292F48);
-    _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入昵称，最多5个字".string attributes:@{NSFontAttributeName:[STFont fontSize:17],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
+    _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入昵称，最多20个字".string attributes:@{NSFontAttributeName:[STFont fontSize:17],NSForegroundColorAttributeName:HexRGB(0xC9C9C9)}];
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _textField.layer.borderColor = HexRGB(0xbcbcbc).CGColor;
     _textField.layer.borderWidth = 0.5;
@@ -115,8 +115,8 @@
 }
 
 - (void)textFieldDidChangeValue:(UITextField *)textField {
-    if (textField.text.length > 5 && textField.markedTextRange == nil) {
-        textField.text = [textField.text substringToIndex:5];
+    if (textField.text.length > 20 && textField.markedTextRange == nil) {
+        textField.text = [textField.text substringToIndex:20];
     }
     if (textField.text.length > 0 && textField.markedTextRange == nil) {
         self.navView.saveBtn.enabled = true;

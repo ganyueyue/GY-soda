@@ -12,9 +12,9 @@
 - (void)setup {
     [super setup];
     
-    self.layer.borderColor = HexRGB(0xBCBCBC).CGColor;
-    self.layer.borderWidth = 0.5;
-    self.layer.cornerRadius = 8;
+    self.layer.borderColor = HexRGB(0x0D140F).CGColor;
+    self.layer.borderWidth = 2;
+    self.layer.cornerRadius = 25;
     self.clipsToBounds = true;
     
     UIButton *searchBtn = [[UIButton alloc]init];

@@ -16,4 +16,6 @@ typedef void(^SXArraySuccess)(NSArray *array);
 
 const static NSNotificationName kHistoryChangeNotification = @"st.history.change.notification";
 
+const static NSNotificationName kFavesChangeNotification = @"st.faves.change.notification";
+
 #endif /* STMarco_h */

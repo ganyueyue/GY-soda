@@ -60,7 +60,7 @@ class LXAlertContentView: KYBaseContentView {
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor(hex: 0xf8f8f8)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        titleLabel.backgroundColor = UIColor.init(patternImage: UIImage.init(named: "invitation_gift_bottom")!)
+//        titleLabel.backgroundColor = UIColor.init(patternImage: UIImage.init(named: "invitation_gift_bottom")!)
         return titleLabel
     }()
     

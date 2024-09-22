@@ -17,6 +17,8 @@
 @property (nonatomic, strong)UIImageView *iconView;
 @property (nonatomic, strong)UILabel *nickLabel;
 @property (nonatomic, strong)STHTTPRequest *request;
+
+@property (nonatomic, strong)UILabel *titleLabel;
 @end
 
 @implementation STUserInfoController
@@ -27,10 +29,22 @@
     self.isShowLoadView = false;
     self.view.backgroundColor = HexRGB(0xf5f5f5);
     
-    [self.view addSubview:self.navView];
-    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.top.equalTo(self.view);
-        make.height.mas_offset([STAppEnvs shareInstance].statusBarHeight + 50);
+//    [self.view addSubview:self.navView];
+//    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.trailing.top.equalTo(self.view);
+//        make.height.mas_offset([STAppEnvs shareInstance].statusBarHeight + 50);
+//    }];
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"用户信息".string;
+    titleLabel.font = [STFont fontStatus:medium fontSize:20];
+    titleLabel.textColor = SXColorMain;
+    [self.view addSubview:titleLabel];
+    self.titleLabel = titleLabel;
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset([STAppEnvs shareInstance].statusBarHeight +20);
+        make.leading.equalTo(self.view).offset(20);
+        make.height.mas_offset(30);
     }];
     
 //    __weak typeof(self) weakSelf = self;
@@ -69,7 +83,7 @@
 
 - (void)createSubView {
     self.iconView = [[UIImageView alloc]init];
-    self.iconView.layer.cornerRadius = 40;
+    self.iconView.layer.cornerRadius = 30;
     self.iconView.layer.borderColor = HexRGB(0xffffff).CGColor;
     self.iconView.layer.borderWidth = 4;
     self.iconView.clipsToBounds = true;
@@ -77,8 +91,8 @@
     [self.view addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(20);
-        make.top.equalTo(self.navView.mas_bottom).offset(20);
-        make.size.mas_offset(CGSizeMake(80, 80));
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(20);
+        make.size.mas_offset(CGSizeMake(60, 60));
     }];
     
     UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeAvatar:)];

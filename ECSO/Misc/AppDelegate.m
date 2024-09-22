@@ -15,6 +15,7 @@
 #import <AFNetworkReachabilityManager.h>
 #import "STHTTPRequest.h"
 #import "STAPPInfo.h"
+#import "STVersionManager.h"
 #import "STAdvertController.h"
 @interface AppDelegate ()
 @property (nonatomic, strong)STHTTPRequest *request;
@@ -60,7 +61,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self loadNetworkReachability];
 //        [self getAppConflgure];
-        [self getSodaConflgure];
+//        [self getSodaConflgure];
     });
     
     [self.window makeKeyAndVisible];
@@ -81,6 +82,8 @@
         if (status != AFNetworkReachabilityStatusReachableViaWiFi && status != AFNetworkReachabilityStatusReachableViaWWAN) {
             [SVProgressHelper dismissWithMsg:@"当前网络不可用"];
             return;
+        } else {
+            [self getSodaConflgure];
         }
     }];
 }
@@ -118,22 +121,44 @@
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];//获取系统等剪切板
     if (pasteboard.string.length > 0 && pasteboard.strings.count == 1) {
         NSString *string = pasteboard.string;
-        if ([NSString isCheckUrl:string.lowercaseString]) {
+        if ([NSString isCheckUrl:string.lowercaseString] || [NSString checkUrlWithString:string.lowercaseString]) {
             STWebViewController *vc = [[STWebViewController alloc] init];
             vc.urlString = string;
             UIViewController *topMost = [UIWindow lx_topMostController];
             [topMost pushViewController:vc completion:^{
                 pasteboard.string = @"";
             }];
+        } else if (string.length > 0) {
+            NSRange startRange = [string rangeOfString:@"】"];
+            NSRange endRange = [string rangeOfString:@"「"];
+            if (startRange.location != NSNotFound && endRange.location != NSNotFound) {
+                NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
+                NSString *result = [string substringWithRange:range];
+                if (result.length > 0) {
+                    if ([NSString isCheckUrl:result] || [NSString checkUrlWithString:result]) {
+                        STWebViewController *vc = [[STWebViewController alloc]init];
+                        vc.urlString = result;
+                        UIViewController *topMost = [UIWindow lx_topMostController];
+                        [topMost pushViewController:vc];
+                    }
+                }
+            }
+            pasteboard.string = @"";
         } else {
             pasteboard.string = @"";
         }
     }
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    [[STVersionManager shareManager] appVersionUpdate];
+    
+}
+
 -(BOOL)application:(UIApplication*)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id>*)options {
 //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
-    if ([url.absoluteString hasPrefix:@"sodato://dc?"]) {
+    if ([url.absoluteString hasPrefix:@"hy://dc?"]) {
         NSString *key = [NSString getParamByName:@"key" URLString:url.absoluteString];
         NSString *decodeKey = [key stringByRemovingPercentEncoding];
         STWebViewController *controller = [[STWebViewController alloc]init];
